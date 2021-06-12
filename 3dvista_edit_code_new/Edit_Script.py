@@ -43,10 +43,10 @@ class Add_Json_Data():
             pre_connect_hotspot = []
             for j in range(len(self.db_load[i])):
                 angle = self.db_load[i][j][1]
-                print(self.db_load[i][j][0])
+                # print(self.db_load[i][j][0])
                 pre_connect_hotspot.append([self.db_load[i][j][0],700+700*angle/math.pi, angle*180/math.pi])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_hotspot.append(pre_connect_hotspot)
-        print(self.connect_hotspot)
+        # print(self.connect_hotspot)
 
     def _get_number_hotspot(self):
         for i in range(self.number_panorama):

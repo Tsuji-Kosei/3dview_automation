@@ -4,7 +4,7 @@ import shutil
 import zipfile
 import zlib
 from Edit_Script import Add_Json_Data
-import create_database_new
+import create_database
 import time
 
 def edit_vista(args):
@@ -16,7 +16,7 @@ def edit_vista(args):
     vtp_copy_path = os.path.join(project_directory_path,vtp_copy_name)
     zip_path = os.path.join(project_directory_path,zip_name)
     extractzip_directory_path = os.path.join(project_directory_path,args.name)
-    cordinate_data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"coordinates2.json")
+    cordinate_data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"Images/coordinates.json")
     data_base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"data_base.js")
     script_path = os.path.join(extractzip_directory_path,"script.js")
 
@@ -47,7 +47,7 @@ def edit_vista(args):
     os.remove(zip_path)
 
     # プロジェクトファイルのscript.jsを編集
-    create_database_new.create_db(cordinate_data_path,data_base_path, distance_limit = args.distance)
+    create_database.create_db(cordinate_data_path,data_base_path, distance_limit = args.distance)
     AJD = Add_Json_Data(script_path, data_base_path)
     AJD.insert_overlays()
     AJD.insert_areas()
