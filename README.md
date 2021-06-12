@@ -32,7 +32,7 @@ ex) python3 main.py sample --database --distance 2.0 --copy
 
 * projectフォルダーに編集する3dvistaのプロジェクトファイルが入っている。
 
-* first.jsはGUIアプリで生成されるデータで、画像名と撮影した画像の位置座標が格納されている。
+* coordinate.jsはGUIアプリで生成されるデータで、画像名と撮影した画像の位置座標が格納されている。
 
 ### Explanation about code
 
