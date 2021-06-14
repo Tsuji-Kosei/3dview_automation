@@ -17,23 +17,29 @@ class Add_Json_Data():
         self.number_info = {}       # 辞書(出発地点の画像名:3, ,, } (1枚目の写真に３個、、、)
         self.number_hotspot = {}    # 辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)
         self.overlays = {}      #{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書　(idは前から順番につなげる先の写真に対応)
-        self.areas = []
-        self.behaviours = []
+        self.areas_hotspot = []
+        self.areas_info = []
+        self.behaviours_hotspot = []
+        self.behaviours_info = []
         self._get_number_panorama() #　self.number_panoramaに登録されている写真の枚数を格納
-        self._get_connect_hotspot() # self.conncect.hotspotに、[[[つなげる先の写真名、x,y],[] , ],[],[]]という形のリストが入っている。大きな塊は登録されている写真の順番になっている。
-        self._get_number_hotspot() # self.number_hotspotに、それぞれの写真に何枚の写真が繋がっているかのリスト[3,4,5] (1枚目の写真に３枚、、、)　を格納
+        self._get_connect_hotspot() # self.conncect.hotspotに、{出発地点の画像名:[[繋がり先の画像名,x座標,y座標],[],  ,,}の辞書を格納
+        self._get_number_hotspot() # self.number_hotspotに、辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)　を格納
         self._get_connect_info()
         self._get_number_info() 
+
         print(self.number_hotspot)
         print(self.number_info)
         print(self.connect_hotspot)
         print(self.connect_info)
-        # self.remember_panorama_info() # script.jsの中のパノラマに関する情報をクラス変数に格納(詳しくはこの関数の先に書いています)
 
-        self._get_overlays() #self.overlaysに、{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書を格納
-        # self._get_areas()   #self.areasに、[[１枚目のパノラマのareas, , , ],[2枚目のパノラマのareas, , , ],[] ,[]]]というリストを格納
-        # self._get_behaviours() #self.behavioursに、[[１枚目のパノラマのbehaviours, , , ],[2枚目のパノラマのbehaviours, , , ],[] ,[]]]というリストを格納
-        
+        self.remember_panorama_info() # script.jsの中のパノラマに関する情報をクラス変数に格納(詳しくはこの関数の先に書いています)
+
+        self._get_overlays_hotspot() #self.overlaysに、{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書を格納
+        self._get_overlays_info()
+        self._get_areas_hotspot()   #self.areas_hotspotに、[[１枚目のパノラマのareas, , , ],[2枚目のパノラマのareas, , , ],[] ,[]]]というリストを格納
+        self._get_areas_info()
+        self._get_behaviours_hotspot() #self.behavioursに、[[１枚目のパノラマのbehaviours, , , ],[2枚目のパノラマのbehaviours, , , ],[] ,[]]]というリストを格納
+        self._get_behaviours_info()
     
     def _get_number_panorama(self):
         json_definition = self.json_load["player"]["definitions"]
@@ -70,23 +76,46 @@ class Add_Json_Data():
         for i in self.connect_info.keys():
             self.number_info[i]=len(self.connect_info[i])
     
-    def _get_overlays(self): # 辞書の上から順に命名していく
+    def _get_overlays_hotspot(self): # 辞書の上から順に命名していく
         count = 0
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                if j == 0: #まずkey作成
+                # if j == 0: #まずkey作成
+                #     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]} #何番目のkeyか、何番目のvalueか
+                # else: # value追加
+                #     self.overlays[i]["overlays"].append(f"this.overlay_C{count}_{j}")
+                if not i in self.overlays:
                     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]}
-                else: # value追加
+                else:
                     self.overlays[i]["overlays"].append(f"this.overlay_C{count}_{j}")
-    
-    def _get_areas(self):
-        for i in range(self.number_panorama):
-            self.areas.append([])
 
+            count +=1
+    
+    def _get_overlays_info(self): # 辞書の上から順に命名していく
+        count = 0
+        for i in self.number_info.keys():
+            for j in range(self.number_info[i]):
+                # if j == 0: #まずkey作成
+                #     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]} #何番目のkeyか、何番目のvalueか
+                # else: # value追加
+                #     self.overlays[i]["overlays"].append(f"this.overlay_C{count}_{j}")
+                if not i in self.overlays:
+                    self.overlays[i] = {"overlays":[f"this.overlay_D{count}_{j}",f"this.popup_D{count}_{j}"]}
+                else:
+                    self.overlays[i]["overlays"].append(f"this.overlay_D{count}_{j}")
+                    self.overlays[i]["overlays"].append(f"this.popup_D{count}_{j}")
+
+            count +=1
+    
+    def _get_areas_hotspot(self):
         for i in range(self.number_panorama):
+            self.areas_hotspot.append([])
+
+        count =0
+        for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
                 yaw = 10*j
-                self.areas[i].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{i}_{j}"],
+                self.areas_hotspot[i].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
                         "class":"HotspotPanoramaOverlayEditable",
                         "excludeClickGoMode":False,
                         "items":[{"visibleOnStop":False,
@@ -122,17 +151,72 @@ class Add_Json_Data():
                         "maps":[],
                         "id":f"overlay_C{i}_{j}",
                         "hasChanges":True})
-
-    def _get_behaviours(self):
+            count += 1
+        
+    def _get_areas_info(self):
         for i in range(self.number_panorama):
-            self.behaviours.append([])
+            self.areas_info.append([])
 
-        for i in range(self.number_panorama):
+        count =0
+        for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                connect_hotspot_id = self.remember_name_id[f"{self.connect_hotspot[i][j][0]}"] ##名前とidの辞書からパノラマのid取得
-                self.behaviours[i].append({"class":"HotspotPanoramaOverlayArea",
-                            "id":f"HotspotPanoramaOverlayArea_C{i}_{j}",
-                            "behaviours":[{"media":f"this.{connect_hotspot_id}",    ###パノラマのid反映
+                yaw = 10*j
+                self.areas_info[i].append([{"excludeClickGoMode":false,
+                                    "class":"HotspotPanoramaOverlayEditable",
+                                    "areas":[f"this.HotspotPanoramaOverlayArea_D{count}_{j}"],
+                                    "rollOverDisplay":false,
+                                    "useHandCursor":true,
+                                    "items":[{"x":self.connect_info[i][j][1],
+                                    "class":"HotspotPanoramaOverlayBitmapImage",
+                                    "transparencyActive":true,
+                                    "y":self.connect_info[i][j][2],
+                                    "label":"Image",
+                                    "horizontalAlign":"center",
+                                    "scaleMode":"fit_inside",
+                                    "verticalAlign":"middle",
+                                    "factorWidth":1.071877180739707,
+                                    "libraryData":{"type":"round",
+                                    "name":"blue",
+                                    "family":"photos",
+                                    "element":"IHotspotOverlayBitmapImage"},
+                                    "width":111.02018229166667,
+                                    "distance":50,
+                                    "factorHeight":1.071877180739707,
+                                    "pitch":-5.2028142445917585,
+                                    "hfov":27.77571411161618,
+                                    "yaw":-6.9186093422888835,
+                                    "height":111.02018229166667,
+                                    "path":"hotspots/Hotspot_7E39A010_7A6C_4A10_41CC_55298DA3B325.png"}],
+                                    "id":f"overlay_D{count}_{j}",
+                                    "hasChanges":true,
+                                    "maps":[]},
+                                    {"rotationY":0,
+                                    "class":"PopupPanoramaOverlayEditable",
+                                    "hideEasing":"cubic_out",
+                                    "showEasing":"cubic_in",
+                                    "popupMaxWidth":"95%",
+                                    "id":f"popup_D{count}_{j}",
+                                    "rotationZ":0,
+                                    "hasChanges":true,
+                                    "popupMaxHeight":"95%",
+                                    "showDuration":500,
+                                    "hideDuration":500,
+                                    "rotationX":0,
+                                    "popupDistance":100,
+                                    "path":self.connect_info[i][j][0]}])
+            count += 1
+
+    def _get_behaviours_hotspot(self):
+        for i in range(self.number_panorama):
+            self.behaviours_hotspot.append([])
+
+        count = 0
+        for i in self.number_hotspot.keys():
+            for j in range(self.number_hotspot[i]):
+                connect_hotspot_panorama_id = self.remember_name_id[f"{self.connect_hotspot[i][j][0]}"] ##名前とidの辞書からパノラマのid取得
+                self.behaviours_hotspot[i].append({"class":"HotspotPanoramaOverlayArea",
+                            "id":f"HotspotPanoramaOverlayArea_C{count}_{j}",
+                            "behaviours":[{"media":f"this.{connect_hotspot_panorama_id}",    ###パノラマのid反映
                             "class":"PanoramaBehaviour",
                             "event":"click",
                             "startPointView":{"type":"smartPoint",
@@ -141,7 +225,101 @@ class Add_Json_Data():
                             "inComponent":"this.MainViewer",
                             "action":"openPanorama",
                             "where":"inViewer"}]})
+            count +=1
 
+    def _get_behaviours_info(self):
+        for i in range(self.number_panorama):
+            self.behaviours_info.append([])
+
+        count = 0
+        for i in self.number_info.keys():
+            for j in range(self.number_info[i]):
+                connect_info_panorama_id = self.remember_name_id[i] ##名前とidの辞書からパノラマのid取得
+                self.behaviours_info.append([{"id":f"HotspotPanoramaOverlayArea_D{count}_{j}",
+                                        "class":"HotspotPanoramaOverlayArea",
+                                        "behaviours":[{"autoCloseIfNotInteraction":false,
+                                        "overlay":f"this.popup_D{count}_{j}",
+                                        "class":"PopupPanoramaOverlayBehaviour",
+                                        "event":"click",
+                                        "sentences":[],
+                                        "stopBackgroundAudio":false,
+                                        "overlayerCallee":f"this.{connect_info_panorama_id}",
+                                        "closeButton":f"this.CloseButton_D{count}_{j}",
+                                        "action":"openPopupPanoramaOverlay",
+                                        "milliseconds":10000}]},
+                                        {"shadowSpread":1,
+                                        "name":"CloseButton4187",
+                                        "rollOverIconColor":6710886,
+                                        "toolTipShadowColor":3355443,
+                                        "toolTipHorizontalAlign":"center",
+                                        "toolTipFontStyle":"normal",
+                                        "toolTipTextShadowAngle":0,
+                                        "paddingBottom":5,
+                                        "id":f"CloseButton_D15309A1_D{count}_{j}",
+                                        "toolTipBackgroundTransparent":false,
+                                        "toolTipTextShadowBlurRadius":3,
+                                        "paddingLeft":5,
+                                        "shadowColor":0,
+                                        "toolTipShadowOpacity":1,
+                                        "toolTipShadowBlurRadius":3,
+                                        "propagateClick":false,
+                                        "toolTipShadowDistance":0,
+                                        "backgroundOpacity":0.3,
+                                        "toolTipBorderSize":1,
+                                        "gap":5,
+                                        "verticalAlign":"middle",
+                                        "toolTipFontWeight":"normal",
+                                        "paddingRight":5,
+                                        "iconWidth":20,
+                                        "arrangement":"horizontal",
+                                        "toolTipFontSize":"1.11vmin",
+                                        "iconLineWidth":5,
+                                        "shadowBlurRadius":6,
+                                        "horizontalAlign":"center",
+                                        "toolTipPaddingTop":4,
+                                        "borderColor":0,
+                                        "borderSize":0,
+                                        "toolTipShadowSpread":0,
+                                        "iconHeight":20,
+                                        "fontFamily":"Arial",
+                                        "toolTipBorderColor":7763574,
+                                        "pressedIconColor":8947848,
+                                        "toolTipPaddingLeft":6,
+                                        "textDecoration":"none",
+                                        "backgroundColor":[14540253,15658734,16777215],
+                                        "toolTipShadowAngle":45,
+                                        "class":"CloseButton",
+                                        "toolTipOpacity":1,
+                                        "fontSize":"1.29vmin",
+                                        "asHotspotVideo":false,
+                                        "mode":"push",
+                                        "toolTipBorderRadius":3,
+                                        "toolTipTextShadowDistance":0,
+                                        "minHeight":0,
+                                        "backgroundColorAlphas":[1,1,1],
+                                        "minWidth":0,
+                                        "toolTipPaddingBottom":4,
+                                        "borderRadius":0,
+                                        "shadowDistance":3,
+                                        "fontStyle":"normal",
+                                        "shadow":false,
+                                        "iconColor":0,
+                                        "toolTipTextShadowOpacity":0,
+                                        "backgroundColorDirection":"vertical",
+                                        "fontColor":16777215,
+                                        "backgroundColorRatios":[0,25,255],
+                                        "toolTipDisplayTime":600,
+                                        "visible":true,
+                                        "toolTipPaddingRight":6,
+                                        "toolTipFontFamily":"Arial",
+                                        "paddingTop":5,
+                                        "toolTipFontColor":6316128,
+                                        "cursor":"hand",
+                                        "toolTipTextShadowSpread":0,
+                                        "fontWeight":"normal",
+                                        "toolTipTextShadowColor":0,
+                                        "toolTipBackgroundColor":16185078}])
+            count +=1
     def remember_context_panorama(self):
         self.remember_context = {}
         json_definition = self.json_load["player"]["definitions"]
@@ -156,7 +334,7 @@ class Add_Json_Data():
         for i in range(len(json_definition)):
             for v in json_definition[i].keys():
                 if(v=='hfovMin'):
-                    self.remember_number.append(i)
+                    self.remember_number[json_definition[i]["paths"].split(".")[0]]=i
     
     def remember_name_and_id_panorama(self):
         self.remember_path = [] # self.remember_pathにパノラマのローカルでのpathが格納される
@@ -177,30 +355,50 @@ class Add_Json_Data():
     
     def remember_panorama_info(self): # script.jsのplayer->definitionsの中の"hfovMin"というキーを持つvalueがパノラマに関する情報
         self.remember_context_panorama() # {中身に対応する画像名:"hfovMin"というキーのvalueの中身,,,}がself.remember_contextに格納されてイル
-        self.remember_position_panorama() # "hfovMin"というキーを持つ辞書が、definitionsの中の何番目にあったかを格納
-        self.remember_name_and_id_panorama() # self.remember_name_idに{画像の名前(.JPG抜き): パノラマに対応したid} という辞書が格納される
+        self.remember_position_panorama() # {中身に対応する画像名:hfovMin"というキーがdefinitionの何番目にあったか,,,}をself.remember_numberに格納
+        self.remember_name_and_id_panorama() # self.remember_name_idに{パノラマ画像の名前: パノラマに対応したid} という辞書が格納される
 
 
     def insert_overlays(self):
         # overlayをそれぞれに追加
-        for i in range(len(self.remember_context)):
-            self.remember_context[i].update(self.overlays[i])
+        for nameIm in self.remember_context.keys():
+            self.remember_context[nameIm].update(self.overlays[nameIm])
 
         # json_loadにoverlay追加したのを入れる
         count = 0
-        for i in self.remember_number:
-            self.json_load['player']['definitions'][i] = self.remember_context[count]
+        for nameIm in self.remember_number.keys():
+            self.json_load['player']['definitions'][self.remember_number[nameIm]] = self.remember_context[nameIm]
             count += 1
     
-    def insert_areas(self):
-        for i in range(self.number_panorama):
+    def insert_areas_hotspot(self):
+        count =0
+        for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                self.json_load["player"]["definitions"].append(self.areas[i][j])
+                self.json_load["player"]["definitions"].append(self.areas_hotspot[count][j])
+            count+=1
     
-    def insert_behaviours(self):
-        for i in range(self.number_panorama):
+    def insert_areas_info(self):
+        count =0
+        for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                self.json_load["player"]["definitions"].append(self.behaviours[i][j])
+                for k in range(2):
+                    self.json_load["player"]["definitions"].append(self.areas_hotspot[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            count+=1
+
+    def insert_behaviours_hotspot(self):
+        count =0
+        for i in self.number_hotspot.keys():
+            for j in range(self.number_hotspot[i]):
+                self.json_load["player"]["definitions"].append(self.behaviours_hotspot[count][j])
+            count +=1
+    
+    def insert_behaviours_info(self):
+        count =0
+        for i in self.number_info.keys():
+            for j in range(self.number_info[i]):
+                for k in range(2):
+                    self.json_load["player"]["definitions"].append(self.behaviours_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            count+=1
 
     # 編集したscript.jsを保存
     def save_to_json(self,save_path):

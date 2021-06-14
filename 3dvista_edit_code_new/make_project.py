@@ -50,8 +50,10 @@ def edit_vista(args):
     create_database.create_db(cordinate_data_path,data_base_path, distance_limit = args.distance)
     AJD = Add_Json_Data(script_path, data_base_path)
     AJD.insert_overlays()
-    AJD.insert_areas()
-    AJD.insert_behaviours()
+    AJD.insert_areas_hotspot()
+    AJD.insert_areas_info()
+    AJD.insert_behaviours_hotspot()
+    AJD.insert_behaviours_info()
     AJD.save_to_json(script_path)
     AJD.file_close()
 
