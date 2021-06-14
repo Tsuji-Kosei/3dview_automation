@@ -115,7 +115,7 @@ class Add_Json_Data():
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
                 yaw = 10*j
-                self.areas_hotspot[i].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
+                self.areas_hotspot[count].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
                         "class":"HotspotPanoramaOverlayEditable",
                         "excludeClickGoMode":False,
                         "items":[{"visibleOnStop":False,
@@ -158,17 +158,17 @@ class Add_Json_Data():
             self.areas_info.append([])
 
         count =0
-        for i in self.number_hotspot.keys():
-            for j in range(self.number_hotspot[i]):
+        for i in self.number_info.keys():
+            for j in range(self.number_info[i]):
                 yaw = 10*j
-                self.areas_info[i].append([{"excludeClickGoMode":false,
+                self.areas_info[count].append([{"excludeClickGoMode":False,
                                     "class":"HotspotPanoramaOverlayEditable",
                                     "areas":[f"this.HotspotPanoramaOverlayArea_D{count}_{j}"],
-                                    "rollOverDisplay":false,
-                                    "useHandCursor":true,
+                                    "rollOverDisplay":False,
+                                    "useHandCursor":True,
                                     "items":[{"x":self.connect_info[i][j][1],
                                     "class":"HotspotPanoramaOverlayBitmapImage",
-                                    "transparencyActive":true,
+                                    "transparencyActive":True,
                                     "y":self.connect_info[i][j][2],
                                     "label":"Image",
                                     "horizontalAlign":"center",
@@ -188,7 +188,7 @@ class Add_Json_Data():
                                     "height":111.02018229166667,
                                     "path":"hotspots/Hotspot_7E39A010_7A6C_4A10_41CC_55298DA3B325.png"}],
                                     "id":f"overlay_D{count}_{j}",
-                                    "hasChanges":true,
+                                    "hasChanges":True,
                                     "maps":[]},
                                     {"rotationY":0,
                                     "class":"PopupPanoramaOverlayEditable",
@@ -197,7 +197,7 @@ class Add_Json_Data():
                                     "popupMaxWidth":"95%",
                                     "id":f"popup_D{count}_{j}",
                                     "rotationZ":0,
-                                    "hasChanges":true,
+                                    "hasChanges":True,
                                     "popupMaxHeight":"95%",
                                     "showDuration":500,
                                     "hideDuration":500,
@@ -213,8 +213,12 @@ class Add_Json_Data():
         count = 0
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
+            
+                print(self.connect_hotspot)
+                print("--------------------------------------")
+                print(self.remember_name_id)
                 connect_hotspot_panorama_id = self.remember_name_id[f"{self.connect_hotspot[i][j][0]}"] ##名前とidの辞書からパノラマのid取得
-                self.behaviours_hotspot[i].append({"class":"HotspotPanoramaOverlayArea",
+                self.behaviours_hotspot[count].append({"class":"HotspotPanoramaOverlayArea",
                             "id":f"HotspotPanoramaOverlayArea_C{count}_{j}",
                             "behaviours":[{"media":f"this.{connect_hotspot_panorama_id}",    ###パノラマのid反映
                             "class":"PanoramaBehaviour",
@@ -237,12 +241,12 @@ class Add_Json_Data():
                 connect_info_panorama_id = self.remember_name_id[i] ##名前とidの辞書からパノラマのid取得
                 self.behaviours_info.append([{"id":f"HotspotPanoramaOverlayArea_D{count}_{j}",
                                         "class":"HotspotPanoramaOverlayArea",
-                                        "behaviours":[{"autoCloseIfNotInteraction":false,
+                                        "behaviours":[{"autoCloseIfNotInteraction":False,
                                         "overlay":f"this.popup_D{count}_{j}",
                                         "class":"PopupPanoramaOverlayBehaviour",
                                         "event":"click",
                                         "sentences":[],
-                                        "stopBackgroundAudio":false,
+                                        "stopBackgroundAudio":False,
                                         "overlayerCallee":f"this.{connect_info_panorama_id}",
                                         "closeButton":f"this.CloseButton_D{count}_{j}",
                                         "action":"openPopupPanoramaOverlay",
@@ -256,13 +260,13 @@ class Add_Json_Data():
                                         "toolTipTextShadowAngle":0,
                                         "paddingBottom":5,
                                         "id":f"CloseButton_D15309A1_D{count}_{j}",
-                                        "toolTipBackgroundTransparent":false,
+                                        "toolTipBackgroundTransparent":False,
                                         "toolTipTextShadowBlurRadius":3,
                                         "paddingLeft":5,
                                         "shadowColor":0,
                                         "toolTipShadowOpacity":1,
                                         "toolTipShadowBlurRadius":3,
-                                        "propagateClick":false,
+                                        "propagateClick":False,
                                         "toolTipShadowDistance":0,
                                         "backgroundOpacity":0.3,
                                         "toolTipBorderSize":1,
@@ -291,7 +295,7 @@ class Add_Json_Data():
                                         "class":"CloseButton",
                                         "toolTipOpacity":1,
                                         "fontSize":"1.29vmin",
-                                        "asHotspotVideo":false,
+                                        "asHotspotVideo":False,
                                         "mode":"push",
                                         "toolTipBorderRadius":3,
                                         "toolTipTextShadowDistance":0,
@@ -302,14 +306,14 @@ class Add_Json_Data():
                                         "borderRadius":0,
                                         "shadowDistance":3,
                                         "fontStyle":"normal",
-                                        "shadow":false,
+                                        "shadow":False,
                                         "iconColor":0,
                                         "toolTipTextShadowOpacity":0,
                                         "backgroundColorDirection":"vertical",
                                         "fontColor":16777215,
                                         "backgroundColorRatios":[0,25,255],
                                         "toolTipDisplayTime":600,
-                                        "visible":true,
+                                        "visible":True,
                                         "toolTipPaddingRight":6,
                                         "toolTipFontFamily":"Arial",
                                         "paddingTop":5,
@@ -326,29 +330,36 @@ class Add_Json_Data():
         for i in range(len(json_definition)):
             for v in json_definition[i].keys():
                 if(v=='hfovMin'):
-                    self.remember_context[json_definition[i]["paths"].split(".")[0]]=json_definition[i]
+                    print(json_definition[i]["paths"][0])
+                    self.remember_context[json_definition[i]["paths"][0].split(".")[0].split("/")[-1]]=json_definition[i]
 
     def remember_position_panorama(self):
-        self.remember_number = []
+        self.remember_number = {}
         json_definition = self.json_load["player"]["definitions"]
         for i in range(len(json_definition)):
             for v in json_definition[i].keys():
                 if(v=='hfovMin'):
-                    self.remember_number[json_definition[i]["paths"].split(".")[0]]=i
+                    self.remember_number[os.path.basename(json_definition[i]["paths"][0]).split(".")[0]]=i
     
     def remember_name_and_id_panorama(self):
         self.remember_path = [] # self.remember_pathにパノラマのローカルでのpathが格納される
         self.remember_id = [] # self.remember_idにパノラマに対応したidが格納される
         self.remember_filename = [] # self.remember_filenameに画像名の.JPGなどを抜いた名前が格納される
         self.remember_name_id = {}
-        for i in range(len(self.remember_context)):
-            self.remember_path.append(self.remember_context[i]["paths"])
+        for i in self.remember_context:
+            self.remember_path.append(self.remember_context[i]["paths"][0])
             self.remember_id.append(self.remember_context[i]['id'])
+            #print(self.remember_context[i]['id'])
 
         for i in range(len(self.remember_path)):
-            self.remember_filename.append(os.path.basename(self.remember_path[i][0]).split(".")[0])
+            print(self.remember_path[i])
+            self.remember_filename.append(os.path.basename(self.remember_path[i]).split(".")[0])
         
         count = 0
+        print(self.remember_path)
+        print(self.remember_id)
+        print(self.remember_filename)
+        
         for v in self.remember_filename:
             self.remember_name_id[f"{v}"] = self.remember_id[count]
             count += 1
@@ -361,8 +372,11 @@ class Add_Json_Data():
 
     def insert_overlays(self):
         # overlayをそれぞれに追加
-        for nameIm in self.remember_context.keys():
+        for nameIm in self.remember_number.keys():
+            print(nameIm)
+            print(self.overlays)
             self.remember_context[nameIm].update(self.overlays[nameIm])
+            
 
         # json_loadにoverlay追加したのを入れる
         count = 0
@@ -379,12 +393,17 @@ class Add_Json_Data():
     
     def insert_areas_info(self):
         count =0
-        for i in self.number_hotspot.keys():
-            for j in range(self.number_hotspot[i]):
-                for k in range(2):
-                    self.json_load["player"]["definitions"].append(self.areas_hotspot[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+        #print(len(self.areas_info[2][0]))
+        for i in self.number_info.keys():
+            if self.number_info[i] == 0 :
+                pass
+            else :
+                for j in range(self.number_info[i]):
+                    for k in range(2):
+                        #print(count,j,k)
+                        self.json_load["player"]["definitions"].append(self.areas_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
-
+            
     def insert_behaviours_hotspot(self):
         count =0
         for i in self.number_hotspot.keys():
@@ -393,11 +412,16 @@ class Add_Json_Data():
             count +=1
     
     def insert_behaviours_info(self):
+        print(len(self.behaviours_info))
         count =0
         for i in self.number_info.keys():
-            for j in range(self.number_info[i]):
-                for k in range(2):
-                    self.json_load["player"]["definitions"].append(self.behaviours_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            if self.number_info[i] == 0:
+                pass
+            else :
+                for j in range(self.number_info[i]):
+                    for k in range(2):
+                        print(count, j, k)
+                        self.json_load["player"]["definitions"].append(self.behaviours_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
 
     # 編集したscript.jsを保存
@@ -412,7 +436,15 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data("/Users/tsujikousei/Documents/rutelia/3dview_code/3dview_automation/3dvista_edit_code_new/script.js", "database.js")
+    AJD = Add_Json_Data('project/test_info/script.js', "database.js")
+    #AJD = Add_Json_Data(script_path, data_base_path)
+    AJD.insert_overlays()
+    AJD.insert_areas_hotspot()
+    AJD.insert_areas_info()
+    AJD.insert_behaviours_hotspot()
+    AJD.insert_behaviours_info()
+    AJD.save_to_json("script.js")
+    AJD.file_close()
     # AJD.insert_overlays()
     # AJD.insert_areas()
     # AJD.insert_behaviours()

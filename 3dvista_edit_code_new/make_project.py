@@ -47,7 +47,7 @@ def edit_vista(args):
     os.remove(zip_path)
 
     # プロジェクトファイルのscript.jsを編集
-    create_database.create_db(cordinate_data_path,data_base_path, distance_limit = args.distance)
+    create_database.create_db(cordinate_data_path,data_base_path)
     AJD = Add_Json_Data(script_path, data_base_path)
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
