@@ -17,20 +17,16 @@ class Add_Json_Data():
         self.number_info = {}       # 辞書(出発地点の画像名:3, ,, } (1枚目の写真に３個、、、)
         self.number_hotspot = {}    # 辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)
         self.overlays = {}      #{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書　(idは前から順番につなげる先の写真に対応)
-        self.areas_hotspot = []
-        self.areas_info = []
-        self.behaviours_hotspot = []
-        self.behaviours_info = []
+        self.areas_hotspot = [] #[[1つめのkey(貼られる画像の)overlayに対応したareasのリスト],[],,,]
+        self.areas_info = [] ##[[1つめのkey(貼られる画像の)overlayに対応したareasのリスト],[],,,]
+        self.behaviours_hotspot = [] ##[[1つめのbehaviour(貼られる画像の)overlayに対応したareasのリスト],[],,,]
+        self.behaviours_info = [] ##[[1つめのbehaviour(貼られる画像の)overlayに対応したareasのリスト],[],,,]
         self._get_number_panorama() #　self.number_panoramaに登録されている写真の枚数を格納
         self._get_connect_hotspot() # self.conncect.hotspotに、{出発地点の画像名:[[繋がり先の画像名,x座標,y座標],[],  ,,}の辞書を格納
         self._get_number_hotspot() # self.number_hotspotに、辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)　を格納
         self._get_connect_info()
         self._get_number_info() 
 
-        print(self.number_hotspot)
-        print(self.number_info)
-        print(self.connect_hotspot)
-        print(self.connect_info)
 
         self.remember_panorama_info() # script.jsの中のパノラマに関する情報をクラス変数に格納(詳しくはこの関数の先に書いています)
 
@@ -53,7 +49,6 @@ class Add_Json_Data():
     def _get_connect_hotspot(self):
         
         for i in self.db_load.keys():
-            print(i)
             pre_connect_hotspot = []
             for j in range(len(self.db_load[i]["hotspot"])):
                 angle = self.db_load[i]["hotspot"][j][1]
@@ -95,10 +90,6 @@ class Add_Json_Data():
         count = 0
         for i in self.number_info.keys():
             for j in range(self.number_info[i]):
-                # if j == 0: #まずkey作成
-                #     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]} #何番目のkeyか、何番目のvalueか
-                # else: # value追加
-                #     self.overlays[i]["overlays"].append(f"this.overlay_C{count}_{j}")
                 if not i in self.overlays:
                     self.overlays[i] = {"overlays":[f"this.overlay_D{count}_{j}",f"this.popup_D{count}_{j}"]}
                 else:
@@ -213,10 +204,7 @@ class Add_Json_Data():
         count = 0
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-            
-                print(self.connect_hotspot)
-                print("--------------------------------------")
-                print(self.remember_name_id)
+
                 connect_hotspot_panorama_id = self.remember_name_id[f"{self.connect_hotspot[i][j][0]}"] ##名前とidの辞書からパノラマのid取得
                 self.behaviours_hotspot[count].append({"class":"HotspotPanoramaOverlayArea",
                             "id":f"HotspotPanoramaOverlayArea_C{count}_{j}",
@@ -235,11 +223,11 @@ class Add_Json_Data():
         for i in range(self.number_panorama):
             self.behaviours_info.append([])
 
-        count = 0
+        count = 0 #何番目のkeyか
         for i in self.number_info.keys():
-            for j in range(self.number_info[i]):
+            for j in range(self.number_info[i]):# jは何番目のvalueか
                 connect_info_panorama_id = self.remember_name_id[i] ##名前とidの辞書からパノラマのid取得
-                self.behaviours_info.append([{"id":f"HotspotPanoramaOverlayArea_D{count}_{j}",
+                self.behaviours_info[count].append([{"id":f"HotspotPanoramaOverlayArea_D{count}_{j}",
                                         "class":"HotspotPanoramaOverlayArea",
                                         "behaviours":[{"autoCloseIfNotInteraction":False,
                                         "overlay":f"this.popup_D{count}_{j}",
@@ -330,7 +318,6 @@ class Add_Json_Data():
         for i in range(len(json_definition)):
             for v in json_definition[i].keys():
                 if(v=='hfovMin'):
-                    print(json_definition[i]["paths"][0])
                     self.remember_context[json_definition[i]["paths"][0].split(".")[0].split("/")[-1]]=json_definition[i]
 
     def remember_position_panorama(self):
@@ -349,16 +336,11 @@ class Add_Json_Data():
         for i in self.remember_context:
             self.remember_path.append(self.remember_context[i]["paths"][0])
             self.remember_id.append(self.remember_context[i]['id'])
-            #print(self.remember_context[i]['id'])
 
         for i in range(len(self.remember_path)):
-            print(self.remember_path[i])
             self.remember_filename.append(os.path.basename(self.remember_path[i]).split(".")[0])
         
         count = 0
-        print(self.remember_path)
-        print(self.remember_id)
-        print(self.remember_filename)
         
         for v in self.remember_filename:
             self.remember_name_id[f"{v}"] = self.remember_id[count]
@@ -373,8 +355,6 @@ class Add_Json_Data():
     def insert_overlays(self):
         # overlayをそれぞれに追加
         for nameIm in self.remember_number.keys():
-            print(nameIm)
-            print(self.overlays)
             self.remember_context[nameIm].update(self.overlays[nameIm])
             
 
@@ -393,14 +373,12 @@ class Add_Json_Data():
     
     def insert_areas_info(self):
         count =0
-        #print(len(self.areas_info[2][0]))
         for i in self.number_info.keys():
             if self.number_info[i] == 0 :
                 pass
             else :
                 for j in range(self.number_info[i]):
                     for k in range(2):
-                        #print(count,j,k)
                         self.json_load["player"]["definitions"].append(self.areas_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
             
@@ -412,7 +390,6 @@ class Add_Json_Data():
             count +=1
     
     def insert_behaviours_info(self):
-        print(len(self.behaviours_info))
         count =0
         for i in self.number_info.keys():
             if self.number_info[i] == 0:
@@ -420,7 +397,6 @@ class Add_Json_Data():
             else :
                 for j in range(self.number_info[i]):
                     for k in range(2):
-                        print(count, j, k)
                         self.json_load["player"]["definitions"].append(self.behaviours_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
 
@@ -436,7 +412,7 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data('project/test_info/script.js', "database.js")
+    AJD = Add_Json_Data('project/test_info/script.js', "data_base.js")
     #AJD = Add_Json_Data(script_path, data_base_path)
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
