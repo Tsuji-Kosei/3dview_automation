@@ -1,6 +1,6 @@
 # 3dvista Automation
 
-複数枚の写真の座標情報から、3dviewを自動で作成するプログラムです
+this code allows to make 3dview automatically from several panorama images.
 
 ## Requrements
 
@@ -12,40 +12,40 @@ numpy
 json
 
 ### usage
+Run at command prompt
 
-コードから実行
 python3 main.py <options>
 ex) python3 main.py sample --database --distance 2.0 --copy
 
 ### options
-必須オプション
+Required options
 * name
-    * .vtpを抜いたプロジェクトファイル名を入力する
+    * please enter the name of project file without ".vtp"
 
-任意オプション
+Optional option
 * --database
-    * 画像と画像の位置関係(距離と角度)のデータが出力される(database.js)
+    * data with positonal relation between images (distance and angle) and information of additional images is output (database.js)
 * --copy
-    * 編集前のプロジェクトファイルをバックアップとして残すために、プロジェクト名+_copyという名前のコピーが生成される。
+    * output the copy file (the name is (project_name)_copy.vtp) to make backup
 
 ### directory structure
 
-* projectフォルダーに編集する3dvistaのプロジェクトファイルが入っている。
+* at "project" folder, there is a 3dvista project file to edit
 
-* coordinate.jsはGUIアプリで生成されるデータで、画像名と撮影した画像の位置座標が格納されている。
+* at "Images" folder, there are the all images to make 3dview and coordinates.js (these are output from GUI APP)
 
 ### Explanation about code
 
-* 3DVista_RPAは3dvistaを自動的に起動し、RPAで操作をするためのコード
+* 3DVista_RPA allows to run 3dvista automaticaly and make project file with RPA
 
-* Edit_script.pyは3DVistaで生成したプロジェクトファイルの中のscript.jsを編集するコード
+* Edit_script.py allows to edit the script.js in the priject file (this code add arrows and info on the project file)
 
-* create_detabase.pyは、GUIアプリから得たjsonファイルをEdit_script.pyのコードに対応するように変種するためのコード
+* create_detabase.py allows to edit coordinate.js to make handling easier
 
-* cal_dis_angleは座標情報から、繋がっている写真の方角を計算するためのコード
+* cal_dis_angle allows to calcurate the angle between images from the coordinates
 
-* make_project.pyは、3DVista_RPAで生成したプロジェクトファイルを、矢印やinformationがついたプロジェクトファイルに変換するためのコード。(zipの解答やファイル操作を主に行っている)
+* make_project.py is allows to do file handling (e.g. compress and decompress a zipped file)
 
-* main.pyは、オプションがまとめられている。
+* main.py is allowed to compile options
 
 ### structure of script.js
