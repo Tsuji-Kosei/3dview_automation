@@ -20,13 +20,6 @@ def edit_vista(args):
     data_base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),"data_base.js")
     script_path = os.path.join(extractzip_directory_path,"script.js")
 
-    # print(project_directory_path)
-    # print(vtp_path)
-    # print(zip_path)
-    # print(extractzip_directory_path)
-    # print(cordinate_data_path)
-    # print(data_base_path)
-    # print(script_path)
 
     # コピーを作るなら、プロジェクトファイルをコピーする
     if os.path.exists(vtp_path):
