@@ -1,10 +1,13 @@
-cd "\Users\root\Desktop\3DVista RPA\3dvista_edit_code_new"
-
+$path = Convert-Path .
 $Name = Read-Host "Project_Name"
+cd ".\3dvista_edit_code_new"
+
+python extract_gui_data.py
 
 python 3DVista_RPA.py $Name
 
-python main.py --copy $Name
+python main.py --database $Name
 
-$cwd = Split-Path $MyInvocation.MyCommand.path
-cd $cwd
+python Preview.py $Name
+
+cd $path

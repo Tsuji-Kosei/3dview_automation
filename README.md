@@ -49,3 +49,7 @@ Optional option
 * main.py is allowed to compile options
 
 ### structure of script.js
+
+実行方法
+
+powershell -NoProfile -ExecutionPolicy Unrestricted .\main.ps1

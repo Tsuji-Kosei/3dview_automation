@@ -20,15 +20,16 @@ def create_db(original_path, data_path):
         for connected_image in line_segments[origin_image]:
             pre_result_calculation.append([])
             prepare_position = []
-            prepare_position.append(coordinates_info[origin_image])
-            prepare_position.append(coordinates_info[connected_image])
+            prepare_position.append(coordinates_info[origin_image]) #taking original photos cord
+            prepare_position.append(coordinates_info[connected_image]) #taking connected cord
 
             lat1 = prepare_position[0][0]  #出発地点の写真の座標
             lon1 = prepare_position[0][1]
             lat2 = prepare_position[1][0]   #つながる先の写真の座標
             lon2 = prepare_position[1][1]
+            #correction_angle = prepare_position[0,2]
 
-            result = vincenty_inverse(lat1, lon1, lat2, lon2)
+            result = vincenty_inverse(lat1, lon1, lat2, lon2)#,correction_angle) 
 
             pre_result_calculation[count].append(connected_image.split(".")[0])
             pre_result_calculation[count].append(result['angle'])
@@ -57,7 +58,7 @@ def create_db(original_path, data_path):
 
 
     with open(data_path, mode='wt', encoding='utf-8') as file:
-        json.dump(data_for_databese, file, ensure_ascii=False, indent=2)
+        json.dump(data_for_databese, file, ensure_ascii=False,indent=2)
 
 
 def main():

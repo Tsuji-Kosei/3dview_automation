@@ -49,7 +49,7 @@ class Add_Json_Data():
     def _get_connect_hotspot(self):
         
         for i in self.db_load.keys():
-            pre_connect_hotspot = []
+            pre_connect_hotspot = []  
             for j in range(len(self.db_load[i]["hotspot"])):
                 angle = self.db_load[i]["hotspot"][j][1]
                 pre_connect_hotspot.append([self.db_load[i]["hotspot"][j][0],700+700*angle/math.pi, angle*180/math.pi])  ##connect_hotspotに名前,x, yでappendしたい
@@ -105,12 +105,11 @@ class Add_Json_Data():
         count =0
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                yaw = 10*j
+                #yaw = 10*j
                 self.areas_hotspot[count].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
                         "class":"HotspotPanoramaOverlayEditable",
                         "excludeClickGoMode":False,
                         "items":[{"visibleOnStop":False,
-                        "hfov":7.616601683506721,
                         "playEvent":"start",
                         "label":"Arrow 01",
                         "verticalAlign":"middle",
@@ -120,16 +119,17 @@ class Add_Json_Data():
                         "showFrameAtStart":0,
                         "stopEvent":"none",
                         "class":"HotspotPanoramaOverlayAnimatedBitmapImage",
-                        "yaw":self.connect_hotspot[i][j][2],
                         "libraryData":{"type":"goToPanoramaWall",
                         "name":"arrow01",
                         "element":"IHotspotOverlayBitmapImage",
                         "family":"animated"},
-                        "pitch":-20,
+                        "pitch":-30,
+                        "hfov":7.616601683506721,
+                        "yaw":self.connect_hotspot[i][j][2],
                         "pauseEvent":"none",
-                        "x":self.connect_hotspot[i][j][1],
+                        "x":708+self.connect_hotspot[i][j][1]*math.sin(self.connect_hotspot[i][j][2]),
                         "fps":16,
-                        "y":400,
+                        "y":483,
                         "horizontalAlign":"center",
                         "scaleMode":"fit_inside",
                         "transparencyActive":True,
@@ -140,7 +140,7 @@ class Add_Json_Data():
                         "rollOverDisplay":False,
                         "useHandCursor":True,
                         "maps":[],
-                        "id":f"overlay_C{i}_{j}",
+                        "id":f"overlay_C{count}_{j}",
                         "hasChanges":True})
             count += 1
         
@@ -157,10 +157,10 @@ class Add_Json_Data():
                                     "areas":[f"this.HotspotPanoramaOverlayArea_D{count}_{j}"],
                                     "rollOverDisplay":False,
                                     "useHandCursor":True,
-                                    "items":[{"x":self.connect_info[i][j][1],
+                                    "items":[{"x":self.connect_info[i][j][2]*1416/618.24,
                                     "class":"HotspotPanoramaOverlayBitmapImage",
                                     "transparencyActive":True,
-                                    "y":self.connect_info[i][j][2],
+                                    "y":self.connect_info[i][j][1]*700/1236.48,
                                     "label":"Image",
                                     "horizontalAlign":"center",
                                     "scaleMode":"fit_inside",
@@ -173,9 +173,9 @@ class Add_Json_Data():
                                     "width":111.02018229166667,
                                     "distance":50,
                                     "factorHeight":1.071877180739707,
-                                    "pitch":-5.2028142445917585,
+                                    "pitch":(618.24-self.connect_info[i][j][1])*90/618.24,
                                     "hfov":27.77571411161618,
-                                    "yaw":-6.9186093422888835,
+                                    "yaw":(self.connect_info[i][j][2]-309.12)*180/309.12,#-6.9186093422888835,
                                     "height":111.02018229166667,
                                     "path":"hotspots/Hotspot_7E39A010_7A6C_4A10_41CC_55298DA3B325.png"}],
                                     "id":f"overlay_D{count}_{j}",
@@ -412,14 +412,14 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data('project/test_info/script.js', "data_base.js")
+    AJD = Add_Json_Data(r"project//script.js", "data_base.js")
     #AJD = Add_Json_Data(script_path, data_base_path)
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
     AJD.insert_areas_info()
     AJD.insert_behaviours_hotspot()
     AJD.insert_behaviours_info()
-    AJD.save_to_json("script.js")
+    AJD.save_to_json("script.json")
     AJD.file_close()
     # AJD.insert_overlays()
     # AJD.insert_areas()

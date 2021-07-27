@@ -58,8 +58,8 @@ def edit_vista(args):
 
 
     # databaseを残さないなら、database.jsを消去
-    if not args.database:
-        os.remove(data_base_path)
+    #if not args.database:
+    #    os.remove(data_base_path)
     
     # zipファイルを.vtpに変換
     os.rename(zip_path, vtp_path)
