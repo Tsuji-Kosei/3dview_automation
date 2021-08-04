@@ -170,13 +170,13 @@ class Add_Json_Data():
                                     "name":"blue",
                                     "family":"photos",
                                     "element":"IHotspotOverlayBitmapImage"},
-                                    "width":111.02018229166667,
-                                    "distance":50,
+                                    "width":33.3333,
+                                    "distance":100,
                                     "factorHeight":1.071877180739707,
                                     "pitch":(618.24-self.connect_info[i][j][1])*90/618.24,
-                                    "hfov":27.77571411161618,
+                                    "hfov":7.616601683506721,
                                     "yaw":(self.connect_info[i][j][2]-309.12)*180/309.12,#-6.9186093422888835,
-                                    "height":111.02018229166667,
+                                    "height":30,
                                     "path":"hotspots/Hotspot_7E39A010_7A6C_4A10_41CC_55298DA3B325.png"}],
                                     "id":f"overlay_D{count}_{j}",
                                     "hasChanges":True,
@@ -194,7 +194,7 @@ class Add_Json_Data():
                                     "hideDuration":500,
                                     "rotationX":0,
                                     "popupDistance":100,
-                                    "path":self.connect_info[i][j][0]}])
+                                    "path":os.path.basename(self.connect_info[i][j][0])}])
             count += 1
 
     def _get_behaviours_hotspot(self):

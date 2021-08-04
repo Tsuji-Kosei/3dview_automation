@@ -4,6 +4,7 @@ import glob
 def main(): 
 
     destination_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+    destination_info_path = os.path.join(os.path.abspath(__file__),"project")
 
     # create the folder to save the data from gui app
     #os.makedirs(destination_path, exist_ok=True)

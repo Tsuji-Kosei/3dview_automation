@@ -4,6 +4,8 @@ cd ".\3dvista_edit_code_new"
 
 python extract_gui_data.py
 
+python json_info_shift.py
+
 python 3DVista_RPA.py $Name
 
 python main.py --database $Name
