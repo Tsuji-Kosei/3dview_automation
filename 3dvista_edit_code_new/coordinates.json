@@ -5,9 +5,11 @@
             144.0431654676259,
             210.3,
             {
-                "URL": ["https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
-                    231.32,
-                    332.1
+                "URL": [
+                    ["https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
+                        231.32,
+                        332.1
+                    ]
                 ]
             },
             {
@@ -44,11 +46,11 @@
         ]
     },
     "line_segments": {
-        "R0010542.jpg": [
-            "R0010543.jpg"
+        "R0010547.jpg": [
+            "R0010548.jpg"
         ],
-        "R0010543.jpg": [
-            "R0010542.jpg"
+        "R0010548.jpg": [
+            "R0010547.jpg"
         ]
     }
 }

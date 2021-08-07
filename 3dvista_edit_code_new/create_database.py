@@ -5,7 +5,7 @@ def create_db(original_path, data_path):
     json_open = open(original_path,'r')
     json_load = json.load(json_open)
 
-    coordinates_info = json_load["markers"]
+    markers = json_load["markers"]
     line_segments = json_load["line_segments"]
     data_for_databese = {}
 
@@ -20,8 +20,8 @@ def create_db(original_path, data_path):
         for connected_image in line_segments[origin_image]:
             pre_result_calculation.append([])
             prepare_position = []
-            prepare_position.append(coordinates_info[origin_image]) #taking original photos cord
-            prepare_position.append(coordinates_info[connected_image]) #taking connected cord
+            prepare_position.append(markers[origin_image]) #taking original photos cord
+            prepare_position.append(markers[connected_image]) #taking connected cord
 
             lat1 = prepare_position[0][0]  #出発地点の写真の座標
             lon1 = prepare_position[0][1]
@@ -41,19 +41,31 @@ def create_db(original_path, data_path):
         data_for_databese[origin_image.split(".")[0]] = result_calculation
 
     # infoに関する情報をまとめる
-    for attached_image in coordinates_info: # attached_Imageが貼り付ける写真の画像名
+    for attached_image in markers: # attached_Imageが貼り付ける写真の画像名
         info_dic = {}
         info_list = []
         count=0
-        for number_of_info in range(len(coordinates_info[attached_image][4]["info"]): # x,y,angle
+        for number_of_info in range(len(markers[attached_image][4]["info"])):
             info_list.append([])
-            info_list[count]= coordinates_info[attached_image][4]["info"][number_of_info] #0,1には画像自体の座標が入っている。２個目以降がinfoに関する情報
+            info_list[count]= markers[attached_image][4]["info"][number_of_info] #0,1には画像自体の座標が入っている。２個目以降がinfoに関する情報
             count +=1
         info_dic["info"] = info_list
         # print(info_dic)
         # print(data_for_databese[attached_image.split(".")[0]])
         data_for_databese[attached_image.split(".")[0]].update(info_dic)
 
+    for attached_image in markers: # attached_Imageが貼り付ける写真の画像名
+        url_dic = {}
+        url_list = []
+        count=0
+        for number_of_url in range(len(markers[attached_image][3]["URL"])):
+            url_list.append([])
+            url_list[count]= markers[attached_image][3]["URL"][number_of_url] #0,1には画像自体の座標が入っている。２個目以降がurlに関する情報
+            count +=1
+        url_dic["URL"] = url_list
+        # print(url_dic)
+        # print(data_for_databese[attached_image.split(".")[0]])
+        data_for_databese[attached_image.split(".")[0]].update(url_dic)
 
 
 
@@ -62,7 +74,7 @@ def create_db(original_path, data_path):
 
 
 def main():
-    create_db("Images/coordinates.json","database.js")
+    create_db("coordinates.json","database_test.js")
 
 if __name__ == "__main__":
     main()
