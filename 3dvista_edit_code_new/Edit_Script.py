@@ -14,28 +14,36 @@ class Add_Json_Data():
         self.number_panorama = 0      #登録されている写真の枚数
         self.connect_hotspot = {}      #{出発地点の画像名:[[繋がり先の画像名,x座標,y座標],[],  ,,}の辞書
         self.connect_info = {}      #{infoが貼られる画像名:[[ローカルの画像名,x座標,y座標],[],  ,,}の辞書
-        self.number_info = {}       # 辞書(出発地点の画像名:3, ,, } (1枚目の写真に３個、、、)
+        self.connect_url = {}
+        self.number_info = {}
+        self.number_url = {}       # 辞書(出発地点の画像名:3, ,, } (1枚目の写真に３個、、、)
         self.number_hotspot = {}    # 辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)
         self.overlays = {}      #{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書　(idは前から順番につなげる先の写真に対応)
         self.areas_hotspot = [] #[[1つめのkey(貼られる画像の)overlayに対応したareasのリスト],[],,,]
         self.areas_info = [] ##[[1つめのkey(貼られる画像の)overlayに対応したareasのリスト],[],,,]
+        self.areas_url = []
         self.behaviours_hotspot = [] ##[[1つめのbehaviour(貼られる画像の)overlayに対応したareasのリスト],[],,,]
         self.behaviours_info = [] ##[[1つめのbehaviour(貼られる画像の)overlayに対応したareasのリスト],[],,,]
+        self.behaviours_url = []
         self._get_number_panorama() #　self.number_panoramaに登録されている写真の枚数を格納
         self._get_connect_hotspot() # self.conncect.hotspotに、{出発地点の画像名:[[繋がり先の画像名,x座標,y座標],[],  ,,}の辞書を格納
         self._get_number_hotspot() # self.number_hotspotに、辞書(infoが貼られる画像名:3, ,, } (1枚目の写真に３個、、、)　を格納
         self._get_connect_info()
         self._get_number_info() 
-
+        self._get_connect_url()
+        self._get_number_url() 
 
         self.remember_panorama_info() # script.jsの中のパノラマに関する情報をクラス変数に格納(詳しくはこの関数の先に書いています)
 
         self._get_overlays_hotspot() #self.overlaysに、{出発地点の画像名:[overlayのid,overlayのid,,  ], } の辞書を格納
         self._get_overlays_info()
+        self._get_overlays_url()
         self._get_areas_hotspot()   #self.areas_hotspotに、[[１枚目のパノラマのareas, , , ],[2枚目のパノラマのareas, , , ],[] ,[]]]というリストを格納
         self._get_areas_info()
+        self._get_areas_url()
         self._get_behaviours_hotspot() #self.behavioursに、[[１枚目のパノラマのbehaviours, , , ],[2枚目のパノラマのbehaviours, , , ],[] ,[]]]というリストを格納
         self._get_behaviours_info()
+        self._get_behaviours_url()
     
     def _get_number_panorama(self):
         json_definition = self.json_load["player"]["definitions"]
@@ -215,16 +223,15 @@ class Add_Json_Data():
                                     "popupDistance":100,
                                     "path":os.path.basename(self.connect_info[i][j][0])}])
             count += 1
-     def _get_areas_url(self):
+    def _get_areas_url(self):
         for i in range(self.number_panorama):
             self.areas_url.append([])
-
         count =0
         for i in self.number_url.keys():
             for j in range(self.number_url[i]):
                 yaw = 10*j
                 self.areas_url[count].append({"excludeClickGoMode":false, 
-                                    "areas":["this.HotspotPanoramaOverlayArea_16B5BCA3_1B39_0255_41B7_51303FE55B51"], 
+                                    "areas":[f"this.HotspotPanoramaOverlayArea_E{count}_{j}"], 
                                     "rollOverDisplay":false, 
                                     "useHandCursor":true, 
                                     "items":[{"x":587.85, 
@@ -248,7 +255,7 @@ class Add_Json_Data():
                                     "yaw":21.697026022304847, 
                                     "height":30, 
                                     "class":"HotspotPanoramaOverlayBitmapImage"}], 
-                                    "id":"overlay_16619C7D_1B39_02AD_41A1_62188522893B", 
+                                    "id":f"overlay_E{count}_{j}", 
                                     "hasChanges":true, 
                                     "class":"HotspotPanoramaOverlayEditable", 
                                     "maps":[]})
@@ -372,14 +379,20 @@ class Add_Json_Data():
     def _get_behaviours_url(self):
         for i in range(self.number_panorama):
             self.behaviours_url.append([])
-
         count = 0 #何番目のkeyか
         for i in self.number_url.keys():
             for j in range(self.number_url[i]):# jは何番目のvalueか
                 connect_url_panorama_id = self.remember_name_id[i] ##名前とidの辞書からパノラマのid取得
-                self.behaviours_url[count].append({"id":"HotspotPanoramaOverlayArea_16B5BCA3_1B39_0255_41B7_51303FE55B51", 
+                self.behaviours_url[count].append([{"id":f"HotspotPanoramaOverlayArea_E{count}_{j}",
                                     "class":"HotspotPanoramaOverlayArea", 
-                                    "behaviours":["this.LinkBehaviour_16004990_1B39_0273_41A2_81F8C09DB325"]})
+                                    "behaviours":[f"this.LinkBehaviour_E{count}_{j}"]},
+                                    {"event":"click", 
+                                    "sentences":[], 
+                                    "method":"_blank", 
+                                    "id":f"LinkBehaviour_E{count}_{j}", 
+                                    "action":"openURL", 
+                                    "class":"LinkBehaviour"}])
+
             count +=1
 
 
@@ -452,7 +465,18 @@ class Add_Json_Data():
                     for k in range(2):
                         self.json_load["player"]["definitions"].append(self.areas_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
-            
+    
+    def insert_areas_url(self):
+        count =0
+        for i in self.number_url.keys():
+            if self.number_url[i] == 0 :
+                pass
+            else :
+                for j in range(self.number_url[i]):
+                    for k in range(1):
+                        self.json_load["player"]["definitions"].append(self.areas_url[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            count+=1
+
     def insert_behaviours_hotspot(self):
         count =0
         for i in self.number_hotspot.keys():
@@ -471,6 +495,29 @@ class Add_Json_Data():
                         self.json_load["player"]["definitions"].append(self.behaviours_info[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
 
+    def insert_behaviours_url(self):
+        count =0
+        for i in self.number_url.keys():
+            if self.number_url[i] == 0:
+                pass
+            else :
+                for j in range(self.number_url[i]):
+                    for k in range(2):
+                        self.json_load["player"]["definitions"].append(self.behaviours_url[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            count+=1
+
+    def insert_behaviours_url_two(self):
+        count =0
+        for i in self.number_url.keys():
+            if self.number_url[i] == 0:
+                pass
+            else :
+                for j in range(self.number_url[i]):
+                    for k in range(1):
+                        self.json_load["locales"]["data"].update([f"LinkBehaviour_E{count}_{j}.source",{"value":self.connect_url[i][j][0],"class":"LocaleValue"}])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+            count+=1
+
+
     # 編集したscript.jsを保存
     def save_to_json(self,save_path):
         with open(save_path, mode='wt', encoding='utf-8') as file:
@@ -483,20 +530,18 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data(r"project//script.js", "data_base.js")
-    #AJD = Add_Json_Data(script_path, data_base_path)
+    AJD = Add_Json_Data("C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/script.js", "C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/coordinates.json")
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
     AJD.insert_areas_info()
+    AJD.insert_areas_url()
     AJD.insert_behaviours_hotspot()
     AJD.insert_behaviours_info()
-    AJD.save_to_json("script.json")
+    AJD.insert_behaviours_url()
+    AJD.insert_behaviours_url_two()
+    AJD.save_to_json("C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/script.js")
     AJD.file_close()
-    # AJD.insert_overlays()
-    # AJD.insert_areas()
-    # AJD.insert_behaviours()
-    # AJD.save_to_json("script.json")
-    # AJD.file_close()
+    
 
 
 if __name__ == "__main__":

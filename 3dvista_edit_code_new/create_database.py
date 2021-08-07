@@ -45,9 +45,9 @@ def create_db(original_path, data_path):
         info_dic = {}
         info_list = []
         count=0
-        for number_of_info in range(len(coordinates_info[attached_image])-2):
+        for number_of_info in range(len(coordinates_info[attached_image][4]["info"]): # x,y,angle
             info_list.append([])
-            info_list[count]= coordinates_info[attached_image][number_of_info+2] #0,1には画像自体の座標が入っている。２個目以降がinfoに関する情報
+            info_list[count]= coordinates_info[attached_image][4]["info"][number_of_info] #0,1には画像自体の座標が入っている。２個目以降がinfoに関する情報
             count +=1
         info_dic["info"] = info_list
         # print(info_dic)
