@@ -31,7 +31,7 @@ else:
 if len(info_image_path) == 0 :
 	pass
 elif len(info_image_path) == 1 :
-	shutil.move(info_image_path[0], "project")
+	shutil.move(info_image_path[0], "Image_info")
 else:
 	for i in len(info_image_path):
-		shutil.move(info_image_path[i],"project")
+		shutil.move(info_image_path[i],"Image_info")

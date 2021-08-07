@@ -56,7 +56,7 @@ if __name__=="__main__":
 		
 		height, width = image.shape[:2]
 		img_merge = image_shift(image, angle_list[i])
-		cv2.imwrite(os.path.basename(path_list[i]), img_merge,[cv2.IMWRITE_JPEG_QUALITY, 100])
+		cv2.imwrite(os.path.join("Images",os.path.basename(path_list[i])), img_merge,[cv2.IMWRITE_JPEG_QUALITY, 100])
 
 	# image = cv2.imread('C:\\Users\\root\\Desktop\\3dview_automation\\3dvista_edit_code_new\\Images\\1.JPG')
 	# height, width = image.shape[:2]

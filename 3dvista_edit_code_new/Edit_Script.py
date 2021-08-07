@@ -63,6 +63,14 @@ class Add_Json_Data():
                 pre_connect_info.append([self.db_load[i]["info"][j][0],self.db_load[i]["info"][j][1],self.db_load[i]["info"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_info[i]=pre_connect_info
 
+    def _get_connect_url(self):
+        
+        for i in self.db_load.keys():
+            pre_connect_url = []
+            for j in range(len(self.db_load[i]["url"])):
+                pre_connect_url.append([self.db_load[i]["url"][j][0],self.db_load[i]["url"][j][1],self.db_load[i]["url"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
+            self.connect_url[i]=pre_connect_url
+
     def _get_number_hotspot(self):
         for i in self.connect_hotspot.keys():
             self.number_hotspot[i]=len(self.connect_hotspot[i])
@@ -70,15 +78,15 @@ class Add_Json_Data():
     def _get_number_info(self):
         for i in self.connect_info.keys():
             self.number_info[i]=len(self.connect_info[i])
+
+    def _get_number_url(self):
+        for i in self.connect_url.keys():
+            self.number_url[i]=len(self.connect_url[i])
     
     def _get_overlays_hotspot(self): # 辞書の上から順に命名していく
         count = 0
         for i in self.number_hotspot.keys():
             for j in range(self.number_hotspot[i]):
-                # if j == 0: #まずkey作成
-                #     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]} #何番目のkeyか、何番目のvalueか
-                # else: # value追加
-                #     self.overlays[i]["overlays"].append(f"this.overlay_C{count}_{j}")
                 if not i in self.overlays:
                     self.overlays[i] = {"overlays":[f"this.overlay_C{count}_{j}"]}
                 else:
@@ -95,6 +103,17 @@ class Add_Json_Data():
                 else:
                     self.overlays[i]["overlays"].append(f"this.overlay_D{count}_{j}")
                     self.overlays[i]["overlays"].append(f"this.popup_D{count}_{j}")
+
+            count +=1
+
+    def _get_overlays_url(self): # 辞書の上から順に命名していく
+        count = 0
+        for i in self.number_url.keys():
+            for j in range(self.number_url[i]):
+                if not i in self.overlays:
+                    self.overlays[i] = {"overlays":[f"this.overlay_E{count}_{j}"]}
+                else:
+                    self.overlays[i]["overlays"].append(f"this.overlay_E{count}_{j}")
 
             count +=1
     
@@ -196,7 +215,44 @@ class Add_Json_Data():
                                     "popupDistance":100,
                                     "path":os.path.basename(self.connect_info[i][j][0])}])
             count += 1
+     def _get_areas_url(self):
+        for i in range(self.number_panorama):
+            self.areas_url.append([])
 
+        count =0
+        for i in self.number_url.keys():
+            for j in range(self.number_url[i]):
+                yaw = 10*j
+                self.areas_url[count].append({"excludeClickGoMode":false, 
+                                    "areas":["this.HotspotPanoramaOverlayArea_16B5BCA3_1B39_0255_41B7_51303FE55B51"], 
+                                    "rollOverDisplay":false, 
+                                    "useHandCursor":true, 
+                                    "items":[{"x":587.85, 
+                                    "transparencyActive":true, 
+                                    "factorWidth":4.996282527881041, 
+                                    "path":"hotspots/Hotspot_7E37A509_7A6C_4BF0_41C4_43F9C1B24379.png", 
+                                    "label":"Image", 
+                                    "horizontalAlign":"center", 
+                                    "scaleMode":"fit_inside", 
+                                    "verticalAlign":"middle", 
+                                    "y":152.4, 
+                                    "libraryData":{"type":"round", 
+                                    "name":"blue", 
+                                    "family":"link", 
+                                    "element":"IHotspotOverlayBitmapImage"}, 
+                                    "width":30, 
+                                    "distance":50, 
+                                    "factorHeight":4.996282527881041, 
+                                    "pitch":33.99256505576208, 
+                                    "hfov":8.321923226137582, 
+                                    "yaw":21.697026022304847, 
+                                    "height":30, 
+                                    "class":"HotspotPanoramaOverlayBitmapImage"}], 
+                                    "id":"overlay_16619C7D_1B39_02AD_41A1_62188522893B", 
+                                    "hasChanges":true, 
+                                    "class":"HotspotPanoramaOverlayEditable", 
+                                    "maps":[]})
+            count += 1
     def _get_behaviours_hotspot(self):
         for i in range(self.number_panorama):
             self.behaviours_hotspot.append([])
@@ -312,6 +368,21 @@ class Add_Json_Data():
                                         "toolTipTextShadowColor":0,
                                         "toolTipBackgroundColor":16185078}])
             count +=1
+
+    def _get_behaviours_url(self):
+        for i in range(self.number_panorama):
+            self.behaviours_url.append([])
+
+        count = 0 #何番目のkeyか
+        for i in self.number_url.keys():
+            for j in range(self.number_url[i]):# jは何番目のvalueか
+                connect_url_panorama_id = self.remember_name_id[i] ##名前とidの辞書からパノラマのid取得
+                self.behaviours_url[count].append({"id":"HotspotPanoramaOverlayArea_16B5BCA3_1B39_0255_41B7_51303FE55B51", 
+                                    "class":"HotspotPanoramaOverlayArea", 
+                                    "behaviours":["this.LinkBehaviour_16004990_1B39_0273_41A2_81F8C09DB325"]})
+            count +=1
+
+
     def remember_context_panorama(self):
         self.remember_context = {}
         json_definition = self.json_load["player"]["definitions"]
