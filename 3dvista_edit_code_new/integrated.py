@@ -2,10 +2,9 @@ import os
 import sys
 import shutil
 import zipfile
-import zlib
 from Edit_Script import Add_Json_Data
 import create_database
-import time
+import cv2
 
 def edit_vista(args):
     vtp_name = args.name + ".vtp"
@@ -45,8 +44,11 @@ def edit_vista(args):
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
     AJD.insert_areas_info()
+    AJD.insert_areas_url()
     AJD.insert_behaviours_hotspot()
     AJD.insert_behaviours_info()
+    AJD.insert_behaviours_url()
+    AJD.insert_behaviours_url_two()
     AJD.save_to_json(script_path)
     AJD.file_close()
 
