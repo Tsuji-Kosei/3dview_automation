@@ -101,5 +101,4 @@ if __name__ == "__main__":
         image = cv2.imread(path_list[i])
         height, width = image.shape[:2]
         img_merge = image_shift(image, angle_list[i])
-        cv2.imwrite(os.path.join("Images", os.path.basename(
-                path_list[i])), img_merge, [cv2.IMWRITE_JPEG_QUALITY, 100])
+        cv2.imwrite(os.path.join("Images", os.path.basename(path_list[i])), img_merge, [cv2.IMWRITE_JPEG_QUALITY, 100])
