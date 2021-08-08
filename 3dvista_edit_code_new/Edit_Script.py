@@ -75,8 +75,8 @@ class Add_Json_Data():
         
         for i in self.db_load.keys():
             pre_connect_url = []
-            for j in range(len(self.db_load[i]["url"])):
-                pre_connect_url.append([self.db_load[i]["url"][j][0],self.db_load[i]["url"][j][1],self.db_load[i]["url"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
+            for j in range(len(self.db_load[i]["URL"])):
+                pre_connect_url.append([self.db_load[i]["URL"][j][0],self.db_load[i]["URL"][j][1],self.db_load[i]["URL"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_url[i]=pre_connect_url
 
     def _get_number_hotspot(self):
@@ -530,7 +530,7 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data("C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/script.js", "C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/coordinates.json")
+    AJD = Add_Json_Data("/Users/tsujikousei/Documents/rutelia/3dview_automation/3dvista_edit_code_new/script.js", "/Users/tsujikousei/Documents/rutelia/3dview_automation/3dvista_edit_code_new/database_test.js")
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
     AJD.insert_areas_info()
@@ -539,7 +539,7 @@ def main():
     AJD.insert_behaviours_info()
     AJD.insert_behaviours_url()
     AJD.insert_behaviours_url_two()
-    AJD.save_to_json("C:/Users/root/Documents/test_NOVA/3dview_automation/3dvista_edit_code_new/script.js")
+    AJD.save_to_json("/Users/tsujikousei/Documents/rutelia/3dview_automation/3dvista_edit_code_new/script.js")
     AJD.file_close()
     
 
