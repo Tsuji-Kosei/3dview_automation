@@ -230,12 +230,12 @@ class Add_Json_Data():
         for i in self.number_url.keys():
             for j in range(self.number_url[i]):
                 yaw = 10*j
-                self.areas_url[count].append({"excludeClickGoMode":false, 
+                self.areas_url[count].append({"excludeClickGoMode":False, 
                                     "areas":[f"this.HotspotPanoramaOverlayArea_E{count}_{j}"], 
-                                    "rollOverDisplay":false, 
-                                    "useHandCursor":true, 
+                                    "rollOverDisplay":False, 
+                                    "useHandCursor":True, 
                                     "items":[{"x":587.85, 
-                                    "transparencyActive":true, 
+                                    "transparencyActive":True, 
                                     "factorWidth":4.996282527881041, 
                                     "path":"hotspots/Hotspot_7E37A509_7A6C_4BF0_41C4_43F9C1B24379.png", 
                                     "label":"Image", 
@@ -256,7 +256,7 @@ class Add_Json_Data():
                                     "height":30, 
                                     "class":"HotspotPanoramaOverlayBitmapImage"}], 
                                     "id":f"overlay_E{count}_{j}", 
-                                    "hasChanges":true, 
+                                    "hasChanges":True, 
                                     "class":"HotspotPanoramaOverlayEditable", 
                                     "maps":[]})
             count += 1
@@ -473,8 +473,7 @@ class Add_Json_Data():
                 pass
             else :
                 for j in range(self.number_url[i]):
-                    for k in range(1):
-                        self.json_load["player"]["definitions"].append(self.areas_url[count][j][k])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+                    self.json_load["player"]["definitions"].append(self.areas_url[count][j])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
 
     def insert_behaviours_hotspot(self):
@@ -513,8 +512,8 @@ class Add_Json_Data():
                 pass
             else :
                 for j in range(self.number_url[i]):
-                    for k in range(1):
-                        self.json_load["locales"]["data"].update([f"LinkBehaviour_E{count}_{j}.source",{"value":self.connect_url[i][j][0],"class":"LocaleValue"}])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
+                    add_dict = {f"LinkBehaviour_E{count}_{j}.source":{"value":self.connect_url[i][j][0],"class":"LocaleValue"}}
+                    self.json_load["locales"][0]["data"].update(add_dict)  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
 
 
