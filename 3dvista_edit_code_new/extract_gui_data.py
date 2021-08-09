@@ -12,8 +12,7 @@ def mv_info():
     json_next_load = json_load["markers"]
     info_image_path = []
     destination_info_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Image_info")
-
-    os.mkdir(destination_info_path)
+    os.mkdir("Image_info")
 #print(json_next_load.keys())
     for key in json_next_load.keys():
         for i in range(len(json_next_load[key][4]["info"])):

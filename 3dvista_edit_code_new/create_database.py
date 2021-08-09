@@ -68,7 +68,7 @@ def create_db(original_path, data_path):
         # print(data_for_databese[attached_image.split(".")[0]])
         data_for_databese[attached_image.split(".")[0]].update(info_dic)
 
-    for attached_image in markers: # attached_Imageが貼り付ける写真の画像名
+    for attached_image in markers: # ここがおかしいのかも
         url_dic = {}
         url_list = []
         count=0
@@ -88,7 +88,7 @@ def create_db(original_path, data_path):
 
 
 def main():
-    create_db("coordinates.json","database_test.js")
+    create_db("Images/coordinates.json","data_base_test.js")
 
 if __name__ == "__main__":
     main()
