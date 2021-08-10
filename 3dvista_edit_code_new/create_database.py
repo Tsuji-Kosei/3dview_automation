@@ -61,7 +61,7 @@ def create_db(original_path, data_path):
         count=0
         for number_of_info in range(len(markers[attached_image][4]["info"])):
             info_list.append([])
-            info_list[count]= markers[attached_image][4]["info"][number_of_info] #0,1には画像自体の座標が入っている。２個目以降がinfoに関する情報
+            info_list[count]= markers[attached_image][4]["info"][number_of_info]
             count +=1
         info_dic["info"] = info_list
         # print(info_dic)
@@ -74,11 +74,9 @@ def create_db(original_path, data_path):
         count=0
         for number_of_url in range(len(markers[attached_image][3]["URL"])):
             url_list.append([])
-            url_list[count]= markers[attached_image][3]["URL"][number_of_url] #0,1には画像自体の座標が入っている。２個目以降がurlに関する情報
+            url_list[count]= markers[attached_image][3]["URL"][number_of_url]
             count +=1
         url_dic["URL"] = url_list
-        # print(url_dic)
-        # print(data_for_databese[attached_image.split(".")[0]])
         data_for_databese[attached_image.split(".")[0]].update(url_dic)
 
 
@@ -88,7 +86,7 @@ def create_db(original_path, data_path):
 
 
 def main():
-    create_db("Images/coordinates.json","data_base_test.js")
+    create_db("Images/coordinates.json","data_base_test2.js")
 
 if __name__ == "__main__":
     main()

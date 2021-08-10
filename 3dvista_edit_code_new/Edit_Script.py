@@ -528,20 +528,20 @@ class Add_Json_Data():
         self.db_open.close()
 
 
-# def main():
-#     AJD = Add_Json_Data("", "")
-#     AJD.insert_overlays()
-#     AJD.insert_areas_hotspot()
-#     AJD.insert_areas_info()
-#     AJD.insert_areas_url()
-#     AJD.insert_behaviours_hotspot()
-#     AJD.insert_behaviours_info()
-#     AJD.insert_behaviours_url()
-#     AJD.insert_behaviours_url_two()
-#     AJD.save_to_json("")
-#     AJD.file_close()
+def main():
+    AJD = Add_Json_Data("script.js", "data_base_test2.js")
+    AJD.insert_overlays()
+    AJD.insert_areas_hotspot()
+    AJD.insert_areas_info()
+    AJD.insert_areas_url()
+    AJD.insert_behaviours_hotspot()
+    AJD.insert_behaviours_info()
+    AJD.insert_behaviours_url()
+    AJD.insert_behaviours_url_two()
+    AJD.save_to_json("script.js")
+    AJD.file_close()
     
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
