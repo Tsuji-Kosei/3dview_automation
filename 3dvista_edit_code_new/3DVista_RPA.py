@@ -20,11 +20,11 @@ Name = args.name
 
 def wait_appear(Image, conf, timeout):
 	t = 0.0
-	print(".\\screenshots\\" + Image + ".jpg")
+	# print(".\\screenshots\\" + Image + ".jpg")
 	while pgui.locateOnScreen(".\\screenshots\\" + Image + ".jpg", grayscale=True, confidence=conf) is None:
 		time.sleep(0.5)
 		t = t + 0.5
-		print(t)
+		# print(t)
 		if t == timeout:
 			pgui.alert(text="画像が認識できませんでした。",title="エラー",button="終了")
 			os.system('taskkill /f /im "3DVista Virtual Tour.exe" >nul')
