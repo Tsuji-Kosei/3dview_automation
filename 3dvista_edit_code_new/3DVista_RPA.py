@@ -20,9 +20,11 @@ Name = args.name
 
 def wait_appear(Image, conf, timeout):
 	t = 0.0
+	print(".\\screenshots\\" + Image + ".jpg")
 	while pgui.locateOnScreen(".\\screenshots\\" + Image + ".jpg", grayscale=True, confidence=conf) is None:
 		time.sleep(0.5)
 		t = t + 0.5
+		print(t)
 		if t == timeout:
 			pgui.alert(text="画像が認識できませんでした。",title="エラー",button="終了")
 			os.system('taskkill /f /im "3DVista Virtual Tour.exe" >nul')
@@ -40,11 +42,13 @@ def New_Project():
 
 	#起動
 	subprocess.Popen("\\Program Files\\3DVista\\3DVista Virtual Tour\\3DVista Virtual Tour.exe")
-	#wait_appear("No", 0.8, 20)
-	#No = pgui.locateOnScreen(".\\screenshots\\No.jpg", grayscale=True, confidence=0.8)
-	#pgui.click(No)
-	wait_appear("New", 0.8, 20)
+	wait_appear("No", 0.8, 20)
+	No = pgui.locateOnScreen(".\\screenshots\\No.jpg", grayscale=True, confidence=0.8)
+	pgui.click(No)
 
+	wait_appear("New", 0.8, 20)
+	New = pgui.locateOnScreen(".\\screenshots\\New.jpg", grayscale=True, confidence=0.8)
+	pgui.click(New)
 	#画像選択まで
 	pgui.press(["tab", "tab", "enter"], interval=0.1)
 	time.sleep(1.5)

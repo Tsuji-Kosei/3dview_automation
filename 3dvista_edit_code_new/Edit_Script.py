@@ -2,11 +2,14 @@ import json
 import os
 import math
 import time
+from os.path import abspath, join, split
+
 
 class Add_Json_Data():
     def __init__(self, path, dbpath):
         self.path = path
         self.dbpath = dbpath
+        # self.info_dir_path =os.path.join(abspath(join(__file__, '../..')),"Images\info")
         self.json_open = open(self.path,'r', encoding='cp932', errors='ignore')
         self.db_open = open(self.dbpath,'r')
         self.json_load = json.load(self.json_open) #3Dvistaのプロジェクトファイルの中のscript.js
@@ -529,7 +532,7 @@ class Add_Json_Data():
 
 
 def main():
-    AJD = Add_Json_Data("script.js", "data_base_test2.js")
+    AJD = Add_Json_Data("script.js", "data_base.js")
     AJD.insert_overlays()
     AJD.insert_areas_hotspot()
     AJD.insert_areas_info()

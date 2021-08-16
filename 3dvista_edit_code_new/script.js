@@ -1,29 +1,24 @@
 {
   "optimizeImages": false,
-  "previewLevel": "yes",
+  "displayTooltipInTouchScreens": true,
   "gyroscopeEnabled": false,
-  "skinInfo": {
-    "title": "Empty",
-    "isAdaptableSize": true,
-    "class": "SkinInfo"
-  },
+  "class": "ShowProject",
   "loadingVisible": true,
   "enablePanorama3DTransition": true,
-  "publishAutoexecutableWithCompression": false,
-  "class": "ShowProject",
+  "showVRMenu": false,
+  "panoramaMouseControlMode": "drag_rotation",
   "player": {
-    "paddingTop": 0,
+    "vrPolyfillScale": 0.75,
     "name": "Player615",
     "toolTipShadowColor": 3355443,
-    "toolTipShadowBlurRadius": 3,
+    "toolTipBackgroundTransparent": false,
     "scrollBarMargin": 2,
     "toolTipFontStyle": "normal",
     "toolTipTextShadowAngle": 0,
     "paddingBottom": 0,
     "id": "rootPlayer",
-    "toolTipBackgroundTransparent": false,
+    "toolTipShadowBlurRadius": 3,
     "toolTipTextShadowBlurRadius": 3,
-    "mobileMipmappingEnabled": false,
     "overflow": "hidden",
     "paddingLeft": 0,
     "toolTipShadowOpacity": 1,
@@ -36,6 +31,7 @@
     "verticalAlign": "top",
     "toolTipFontWeight": "normal",
     "paddingRight": 0,
+    "defaultVRPointer": "laser",
     "scrollBarWidth": 10,
     "arrangement": "absolute",
     "toolTipFontSize": "1.11vmin",
@@ -55,16 +51,16 @@
     "downloadEnabled": false,
     "desktopMipmappingEnabled": false,
     "toolTipPaddingLeft": 6,
-    "defaultVRPointer": "laser",
+    "mobileMipmappingEnabled": false,
     "backgroundColor": [
       16777215
     ],
     "toolTipShadowAngle": 45,
     "width": "100%",
+    "class": "Player",
     "toolTipOpacity": 1,
     "height": "100%",
     "asHotspotVideo": false,
-    "vrPolyfillScale": 0.75,
     "toolTipBorderRadius": 3,
     "toolTipTextShadowDistance": 0,
     "minHeight": 20,
@@ -87,7 +83,7 @@
         "visible": true,
         "toolTipTextShadowSpread": 0,
         "subtitlesFontColor": 16777215,
-        "class": "ViewerAreaLabeled",
+        "subtitlesTextShadowOpacity": 1,
         "progressRight": 0,
         "id": "MainViewer",
         "toolTipShadowOpacity": 1,
@@ -108,7 +104,6 @@
         "subtitlesPaddingLeft": 5,
         "playbackBarHeadBorderRadius": 0,
         "surfaceReticleSelectionOpacity": 1,
-        "subtitlesTextShadowOpacity": 1,
         "subtitlesPaddingRight": 5,
         "borderSize": 0,
         "subtitlesBottom": 50,
@@ -116,7 +111,6 @@
         "progressBackgroundColorRatios": [
           0
         ],
-        "vrPointerSelectionTime": 2000,
         "progressBorderRadius": 0,
         "subtitlesTop": 0,
         "backgroundColor": [
@@ -126,11 +120,12 @@
         "toolTipShadowAngle": 45,
         "playbackBarHeadShadow": true,
         "playbackBarProgressOpacity": 1,
-        "subtitlesTextShadowDistance": 1,
+        "class": "ViewerAreaLabeled",
         "subtitlesShadowBlurRadius": 3,
         "subtitlesTextShadowColor": 0,
         "playbackBarHeadBorderColor": 0,
         "playbackBarHeadShadowAngle": 0,
+        "subtitlesTextShadowDistance": 1,
         "toolTipBorderRadius": 3,
         "progressLeft": 0,
         "surfaceReticleColor": 16777215,
@@ -154,12 +149,12 @@
         "subtitlesPaddingBottom": 5,
         "toolTipTextShadowOpacity": 0,
         "displayTooltipInTouchScreens": true,
-        "vrPointerSelectionColor": 16737792,
         "backgroundColorDirection": "vertical",
         "progressBarBorderColor": 0,
-        "paddingTop": 0,
-        "playbackBarBottom": 5,
         "toolTipDisplayTime": 600,
+        "playbackBarBottom": 5,
+        "vrPointerSelectionTime": 2000,
+        "paddingTop": 0,
         "paddingBottom": 0,
         "subtitlesTextShadowAngle": 45,
         "playbackBarBackgroundOpacity": 1,
@@ -169,13 +164,13 @@
         "playbackBarProgressBackgroundColorDirection": "vertical",
         "progressBackgroundOpacity": 1,
         "toolTipShadowColor": 3355443,
-        "toolTipShadowBlurRadius": 3,
+        "toolTipBackgroundTransparent": false,
         "toolTipTextShadowColor": 0,
         "subtitlesBorderColor": 16777215,
         "transitionMode": "blending",
         "toolTipTextShadowAngle": 0,
         "toolTipFontColor": 6316128,
-        "toolTipBackgroundTransparent": false,
+        "toolTipShadowBlurRadius": 3,
         "toolTipTextShadowBlurRadius": 3,
         "playbackBarHeight": 10,
         "progressBackgroundColorDirection": "vertical",
@@ -184,7 +179,9 @@
         ],
         "paddingLeft": 0,
         "playbackBarHeadBackgroundColorDirection": "vertical",
+        "vrPointerColor": 16777215,
         "toolTipHorizontalAlign": "center",
+        "vrPointerSelectionColor": 16737792,
         "toolTipShadowDistance": 0,
         "backgroundOpacity": 1,
         "subtitlesTextDecoration": "none",
@@ -228,7 +225,6 @@
         "minWidth": 100,
         "progressBottom": 0,
         "borderRadius": 0,
-        "vrPointerColor": 16777215,
         "subtitlesGap": 0,
         "percentHeight": 100,
         "playbackBarHeadShadowBlurRadius": 3,
@@ -261,32 +257,32 @@
         "toolTipBackgroundColor": 16185078
       },
       {
-        "exportHeight": 2688,
+        "class": "PanoramaEditable",
         "vfov": 180,
-        "camera": "this.panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE_camera",
+        "camera": "this.panorama_469BB0AF_4DF2_EF54_41D0_E36532137718_camera",
         "frames": [
           {
             "class": "CubicPanoramaFrame"
           }
         ],
         "stopGlobalMusic": false,
-        "id": "panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE",
+        "id": "panorama_469BB0AF_4DF2_EF54_41D0_E36532137718",
         "pose": {
           "roll": 0,
           "yaw": 0,
-          "pitch": 0,
-          "class": "PanoramaPose"
+          "class": "PanoramaPose",
+          "pitch": 0
         },
-        "quality": 75,
+        "exportHeight": 2688,
         "width": 5376,
         "hfovMax": 130,
         "hasChanges": true,
         "pitch": 0,
-        "class": "PanoramaEditable",
         "paths": [
-          "R0010547.jpg"
+          "file:///C:/Users/root/Documents/walk/3dview_automation/3dvista_edit_code_new/Images/R0010547.jpg"
         ],
         "hfov": 360,
+        "quality": 75,
         "hfovMin": "150%",
         "sourceType": "erect",
         "height": 2688,
@@ -301,32 +297,32 @@
         ]
       },
       {
-        "exportHeight": 2688,
+        "class": "PanoramaEditable",
         "vfov": 180,
-        "camera": "this.panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3_camera",
+        "camera": "this.panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3_camera",
         "frames": [
           {
             "class": "CubicPanoramaFrame"
           }
         ],
         "stopGlobalMusic": false,
-        "id": "panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3",
+        "id": "panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3",
         "pose": {
           "roll": 0,
           "yaw": 0,
-          "pitch": 0,
-          "class": "PanoramaPose"
+          "class": "PanoramaPose",
+          "pitch": 0
         },
-        "quality": 75,
+        "exportHeight": 2688,
         "width": 5376,
         "hfovMax": 130,
         "hasChanges": true,
         "pitch": 0,
-        "class": "PanoramaEditable",
         "paths": [
-          "R0010548.jpg"
+          "file:///C:/Users/root/Documents/walk/3dview_automation/3dvista_edit_code_new/Images/R0010548.jpg"
         ],
         "hfov": 360,
+        "quality": 75,
         "hfovMin": "150%",
         "sourceType": "erect",
         "height": 2688,
@@ -337,20 +333,19 @@
         ]
       },
       {
-        "paddingTop": 10,
         "name": "HTMLText614",
         "toolTipShadowColor": 3355443,
-        "toolTipShadowBlurRadius": 3,
+        "toolTipBackgroundTransparent": false,
         "scrollBarMargin": 2,
         "pixelsPerUnitH": 10.8,
         "toolTipTextShadowAngle": 0,
         "paddingBottom": 10,
-        "id": "HTMLText_1650EC48_1F5D_238B_41AA_25D32693BE41",
+        "id": "HTMLText_44EF757F_4DEE_B1B4_41BB_79D65AE87433",
         "left": "0%",
         "toolTipTextShadowBlurRadius": 3,
         "paddingLeft": 10,
         "toolTipShadowOpacity": 1,
-        "toolTipBackgroundTransparent": false,
+        "toolTipHorizontalAlign": "center",
         "propagateClick": false,
         "toolTipShadowDistance": 0,
         "backgroundOpacity": 0,
@@ -359,7 +354,7 @@
         "paddingRight": 10,
         "scrollBarWidth": 10,
         "toolTipFontSize": "1.11vmin",
-        "toolTipHorizontalAlign": "center",
+        "toolTipShadowBlurRadius": 3,
         "toolTipPaddingTop": 4,
         "borderSize": 0,
         "scrollBarVisible": "rollOver",
@@ -369,6 +364,7 @@
         "toolTipBorderColor": 7763574,
         "toolTipPaddingLeft": 6,
         "toolTipShadowAngle": 45,
+        "class": "HTMLText",
         "toolTipOpacity": 1,
         "asHotspotVideo": false,
         "toolTipBorderRadius": 3,
@@ -389,61 +385,61 @@
         "visible": true,
         "toolTipPaddingRight": 6,
         "toolTipFontStyle": "normal",
-        "toolTipBackgroundColor": 16185078,
+        "paddingTop": 10,
         "toolTipFontColor": 6316128,
         "toolTipTextShadowSpread": 0,
         "toolTipTextShadowColor": 0,
-        "class": "HTMLText"
+        "toolTipBackgroundColor": 16185078
       },
       {
         "automaticRotationSpeed": 10,
         "manualRotationSpeed": 1800,
+        "class": "PanoramaCamera",
         "initialPosition": {
           "yaw": 0,
-          "pitch": 0,
-          "class": "PanoramaCameraPosition"
+          "class": "PanoramaCameraPosition",
+          "pitch": 0
         },
-        "class": "PanoramaCamera",
         "manualZoomSpeed": 1,
-        "id": "panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE_camera",
+        "id": "panorama_469BB0AF_4DF2_EF54_41D0_E36532137718_camera",
         "automaticZoomSpeed": 10,
-        "initialSequence": "this.sequence_16D6CF6A_1F5D_FD8F_41BE_3CA6912D81B6"
+        "initialSequence": "this.sequence_447B630D_4DF2_D154_41C7_8D3B5D26CFA7"
       },
       {
         "automaticRotationSpeed": 10,
         "manualRotationSpeed": 1800,
+        "class": "PanoramaCamera",
         "initialPosition": {
           "yaw": 0,
-          "pitch": 0,
-          "class": "PanoramaCameraPosition"
+          "class": "PanoramaCameraPosition",
+          "pitch": 0
         },
-        "class": "PanoramaCamera",
         "manualZoomSpeed": 1,
-        "id": "panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3_camera",
+        "id": "panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3_camera",
         "automaticZoomSpeed": 10,
-        "initialSequence": "this.sequence_16D27F6B_1F5D_FD8D_41B1_7091E6958819"
+        "initialSequence": "this.sequence_447F830F_4DF2_D154_41CB_8D13B8EC0736"
       },
       {
         "yawSpeedPercent": 0.15,
+        "class": "PanoramaCameraLoopSequence",
         "restartMovementOnUserInteraction": false,
         "laps": 1,
-        "class": "PanoramaCameraLoopSequence",
         "moveToHorizon": false,
         "inertiaFunction": "cubic",
         "direction": "right",
-        "id": "sequence_16D6CF6A_1F5D_FD8F_41BE_3CA6912D81B6",
+        "id": "sequence_447B630D_4DF2_D154_41C7_8D3B5D26CFA7",
         "inertiaSpeedPercent": 0.5,
         "withAcceleration": true
       },
       {
         "yawSpeedPercent": 0.15,
+        "class": "PanoramaCameraLoopSequence",
         "restartMovementOnUserInteraction": false,
         "laps": 1,
-        "class": "PanoramaCameraLoopSequence",
         "moveToHorizon": false,
         "inertiaFunction": "cubic",
         "direction": "right",
-        "id": "sequence_16D27F6B_1F5D_FD8D_41B1_7091E6958819",
+        "id": "sequence_447F830F_4DF2_D154_41CB_8D13B8EC0736",
         "inertiaSpeedPercent": 0.5,
         "withAcceleration": true
       },
@@ -732,7 +728,7 @@
         "id": "HotspotPanoramaOverlayArea_C0_0",
         "behaviours": [
           {
-            "media": "this.panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3",
+            "media": "this.panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3",
             "class": "PanoramaBehaviour",
             "event": "click",
             "startPointView": {
@@ -751,7 +747,7 @@
         "id": "HotspotPanoramaOverlayArea_C1_0",
         "behaviours": [
           {
-            "media": "this.panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE",
+            "media": "this.panorama_469BB0AF_4DF2_EF54_41D0_E36532137718",
             "class": "PanoramaBehaviour",
             "event": "click",
             "startPointView": {
@@ -776,7 +772,7 @@
             "event": "click",
             "sentences": [],
             "stopBackgroundAudio": false,
-            "overlayerCallee": "this.panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE",
+            "overlayerCallee": "this.panorama_469BB0AF_4DF2_EF54_41D0_E36532137718",
             "closeButton": "this.CloseButton_D0_0",
             "action": "openPopupPanoramaOverlay",
             "milliseconds": 10000
@@ -880,7 +876,7 @@
             "event": "click",
             "sentences": [],
             "stopBackgroundAudio": false,
-            "overlayerCallee": "this.panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE",
+            "overlayerCallee": "this.panorama_469BB0AF_4DF2_EF54_41D0_E36532137718",
             "closeButton": "this.CloseButton_D0_1",
             "action": "openPopupPanoramaOverlay",
             "milliseconds": 10000
@@ -1014,16 +1010,20 @@
     "toolTipPaddingRight": 6,
     "toolTipFontFamily": "Arial",
     "mouseWheelEnabled": true,
-    "toolTipBackgroundColor": 16185078,
+    "paddingTop": 0,
     "toolTipFontColor": 6316128,
     "toolTipTextShadowSpread": 0,
     "toolTipTextShadowColor": 0,
-    "class": "Player"
+    "toolTipBackgroundColor": 16185078
   },
-  "publishVideo360Properties": {},
+  "skinInfo": {
+    "isAdaptableSize": true,
+    "title": "Empty",
+    "class": "SkinInfo"
+  },
   "medias": [
-    "this.panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE",
-    "this.panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3"
+    "this.panorama_469BB0AF_4DF2_EF54_41D0_E36532137718",
+    "this.panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3"
   ],
   "surfaceSelectionSensitivity": 1,
   "tdvHostingCredentials": {
@@ -1033,8 +1033,17 @@
   "surfaceSelectionHotspotMode": "circleEnabled",
   "publishVideo360": false,
   "muteSoundAtStart": false,
+  "textToSpeechConfig": {
+    "class": "TextToSpeechConfig",
+    "pitch": 1,
+    "stopBackgroundAudio": false,
+    "speechOnTooltip": false,
+    "speechOnQuizQuestion": false,
+    "speechOnInfoWindow": false,
+    "rate": 1,
+    "volume": 1
+  },
   "publishAutoexecutable": false,
-  "displayTooltipInTouchScreens": true,
   "enableTdvTourAnalytics": false,
   "optimizeForVR": true,
   "analyticsAnonymizeIP": true,
@@ -1047,59 +1056,19 @@
   "surfaceSelectionEnabled": false,
   "publishAutoexecutableMac": true,
   "exportVideoToAdaptive": false,
-  "displayTooltipInSurfaceSelection": true,
-  "additionalMedias": [],
-  "publishGSV": false,
-  "enableLocaleAutodetection": true,
-  "enableSubtitles": true,
-  "publishTDVCloud": false,
-  "gyroscopeVerticalDraggingEnabled": true,
-  "locales": [
-    {
-      "language": "ja",
-      "data": {
-        "panorama_162884BA_1F5D_EC8C_419C_895D4ABA88D3.label": {
-          "value": "R0010548",
-          "class": "LocaleValue"
-        },
-        "HTMLText_1650EC48_1F5D_238B_41AA_25D32693BE41.html": {
-          "value": "<P ALIGN=\"center\"><FONT FACE=\"Arial\" SIZE=\"1.6666666666666665vmin\" COLOR=\"#777777\" LETTERSPACING=\"0vmin\" KERNING=\"1\">Loading virtual tour. Please wait...</FONT></P>",
-          "class": "LocaleValue"
-        },
-        "tour.name": {
-          "value": "Untitled 244",
-          "class": "LocaleValue"
-        },
-        "panorama_15A56E73_1F5D_3F9D_41BE_F5F2D1ABC4FE.label": {
-          "value": "R0010547",
-          "class": "LocaleValue"
-        },
-        "LinkBehaviour_E0_0.source": {
-          "value": "https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
-          "class": "LocaleValue"
-        },
-        "LinkBehaviour_E1_0.source": {
-          "value": "https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
-          "class": "LocaleValue"
-        }
-      },
-      "class": "Locale"
-    }
-  ],
-  "exportiOSLegacy": false,
+  "publishVideo360Properties": {},
   "preloadPlayer": {
-    "paddingTop": 0,
+    "vrPolyfillScale": 0.75,
     "name": "Player613",
     "toolTipShadowColor": 3355443,
-    "toolTipShadowBlurRadius": 3,
+    "toolTipBackgroundTransparent": false,
     "scrollBarMargin": 2,
     "toolTipFontStyle": "normal",
     "toolTipTextShadowAngle": 0,
     "paddingBottom": 0,
-    "id": "Player_15EA46AB_1F5D_2C8D_41B4_0843E5EF4093",
-    "toolTipBackgroundTransparent": false,
+    "id": "Player_4735E231_4DF3_F34C_41BD_F788D7888753",
+    "toolTipShadowBlurRadius": 3,
     "toolTipTextShadowBlurRadius": 3,
-    "mobileMipmappingEnabled": false,
     "overflow": "hidden",
     "paddingLeft": 0,
     "toolTipShadowOpacity": 1,
@@ -1112,6 +1081,7 @@
     "verticalAlign": "top",
     "toolTipFontWeight": "normal",
     "paddingRight": 0,
+    "defaultVRPointer": "laser",
     "scrollBarWidth": 10,
     "arrangement": "absolute",
     "toolTipFontSize": "1.11vmin",
@@ -1123,7 +1093,7 @@
     "toolTipShadowSpread": 0,
     "device2Children": {
       "general": [
-        "this.HTMLText_1650EC48_1F5D_238B_41AA_25D32693BE41"
+        "this.HTMLText_44EF757F_4DEE_B1B4_41BB_79D65AE87433"
       ]
     },
     "scrollBarOpacity": 0.5,
@@ -1131,16 +1101,16 @@
     "downloadEnabled": false,
     "desktopMipmappingEnabled": false,
     "toolTipPaddingLeft": 6,
-    "defaultVRPointer": "laser",
+    "mobileMipmappingEnabled": false,
     "backgroundColor": [
       16777215
     ],
     "toolTipShadowAngle": 45,
     "width": "100%",
+    "class": "Player",
     "toolTipOpacity": 1,
     "height": "100%",
     "asHotspotVideo": false,
-    "vrPolyfillScale": 0.75,
     "toolTipBorderRadius": 3,
     "toolTipTextShadowDistance": 0,
     "minHeight": 20,
@@ -1168,28 +1138,58 @@
     "toolTipPaddingRight": 6,
     "toolTipFontFamily": "Arial",
     "mouseWheelEnabled": true,
-    "toolTipBackgroundColor": 16185078,
+    "paddingTop": 0,
     "toolTipFontColor": 6316128,
     "toolTipTextShadowSpread": 0,
     "toolTipTextShadowColor": 0,
-    "class": "Player"
+    "toolTipBackgroundColor": 16185078
   },
-  "showVRMenu": false,
+  "publishGSV": false,
+  "enableLocaleAutodetection": true,
+  "previewLevel": "yes",
+  "publishTDVCloud": false,
+  "gyroscopeVerticalDraggingEnabled": true,
+  "locales": [
+    {
+      "language": "ja",
+      "data": {
+        "panorama_469BB0AF_4DF2_EF54_41D0_E36532137718.label": {
+          "value": "R0010547",
+          "class": "LocaleValue"
+        },
+        "HTMLText_44EF757F_4DEE_B1B4_41BB_79D65AE87433.html": {
+          "value": "<P ALIGN=\"center\"><FONT FACE=\"Arial\" SIZE=\"1.6666666666666665vmin\" COLOR=\"#777777\" LETTERSPACING=\"0vmin\" KERNING=\"1\">Loading virtual tour. Please wait...</FONT></P>",
+          "class": "LocaleValue"
+        },
+        "panorama_4487A9B8_4DF2_F0BC_41CB_6EA8FACE0EC3.label": {
+          "value": "R0010548",
+          "class": "LocaleValue"
+        },
+        "tour.name": {
+          "value": "Untitled 245",
+          "class": "LocaleValue"
+        },
+        "LinkBehaviour_E0_0.source": {
+          "value": "https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
+          "class": "LocaleValue"
+        },
+        "LinkBehaviour_E1_0.source": {
+          "value": "https://www.newsweek.com/meme-ban-obesity-loughborough-university-teenagers-health-memeotive-social-1176955",
+          "class": "LocaleValue"
+        }
+      },
+      "class": "Locale"
+    }
+  ],
+  "additionalMedias": [],
+  "saveAs": "C:\\Users\\root\\Documents\\walk\\3dview_automation\\3dvista_edit_code_new\\project\\test.vtp",
+  "enableSubtitles": true,
   "initializationMode": "onReady",
-  "uid": "17A37C40-1F5D-23FB-41AD-513F8812AC02",
+  "uid": "451CE577-4DEE-B1B4-41C4-CE642598B6A1",
   "mainPlayListSameSpotForPanoramas": false,
   "forceGeneralSkinIPad": false,
-  "textToSpeechConfig": {
-    "pitch": 1,
-    "class": "TextToSpeechConfig",
-    "stopBackgroundAudio": false,
-    "speechOnTooltip": false,
-    "speechOnQuizQuestion": false,
-    "speechOnInfoWindow": false,
-    "rate": 1,
-    "volume": 1
-  },
-  "saveAs": "C:\\Users\\root\\Documents\\test_NOVA - 繧ｳ繝斐ｼ\\3dview_automation\\3dvista_edit_code_new\\test.vtp",
+  "exportiOSLegacy": false,
+  "displayTooltipInSurfaceSelection": true,
   "arrowKeysAction": "translate",
-  "panoramaMouseControlMode": "drag_rotation"
+  "publishAutoexecutableWithCompression": false
 }

@@ -11,8 +11,8 @@ def mv_info():
     json_load = json.load(json_open)
     json_next_load = json_load["markers"]
     info_image_path = []
-    destination_info_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Image_info")
-    os.mkdir("Image_info")
+    # destination_info_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "project")
+    # os.mkdir("Image_info")
 #print(json_next_load.keys())
     for key in json_next_load.keys():
         for i in range(len(json_next_load[key][4]["info"])):
@@ -26,7 +26,11 @@ def mv_info():
     print(info_image_path)
 
     for i in range(len(info_image_path)):
-        shutil.move(info_image_path[i], "Image_info")
+        try:
+            shutil.move(info_image_path[i], "project")
+        except shutil.Error as err:
+            os.remove(info_image_path[i])
+            print("already exist info image in project dir")
 
 
 def unzipping():
@@ -93,11 +97,11 @@ def image_shift(image, direction):
 
 if __name__ == "__main__":
     unzipping()
-    path_list, angle_list = taking_image_path()
-    print(path_list)
-    print(angle_list)
-    for i in range(len(path_list)):
-        image = cv2.imread(path_list[i])
-        height, width = image.shape[:2]
-        img_merge = image_shift(image, angle_list[i])
-        cv2.imwrite(os.path.join("Images", os.path.basename(path_list[i])), img_merge, [cv2.IMWRITE_JPEG_QUALITY, 100])
+    # path_list, angle_list = taking_image_path()
+    # print(path_list)
+    # print(angle_list)
+    # for i in range(len(path_list)):
+    #     image = cv2.imread(path_list[i])
+    #     height, width = image.shape[:2]
+    #     img_merge = image_shift(image, angle_list[i])
+    #     cv2.imwrite(os.path.join("Images", os.path.basename(path_list[i])), img_merge, [cv2.IMWRITE_JPEG_QUALITY, 100])

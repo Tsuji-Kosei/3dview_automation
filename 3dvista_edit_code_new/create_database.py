@@ -86,7 +86,7 @@ def create_db(original_path, data_path):
 
 
 def main():
-    create_db("Images/coordinates.json","data_base_test2.js")
+    create_db("Images/coordinates.json","data_base.js")
 
 if __name__ == "__main__":
     main()
