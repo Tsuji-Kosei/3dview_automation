@@ -59,31 +59,44 @@ def create_db(original_path, data_path):
         info_dic = {}
         info_list = []
         count=0
-        if "Info" in markers[attached_image][2].keys():
-            print(len(markers[attached_image][2]["Info"]))
-            for number_of_info in range(len(markers[attached_image][2]["Info"])):
-                info_list.append([])
-                info_list[count]= markers[attached_image][2]["Info"][number_of_info]
-                count +=1
-            info_dic["info"] = info_list
-            # print(info_dic)
-            # print(data_for_databese[attached_image.split(".")[0]])
-            data_for_databese[attached_image.split(".")[0]].update(info_dic)
+        flug_nothing_info = False
+        if len(markers[attached_image])==2: flug_nothing_info =True
+
+        if not flug_nothing_info: # in case that there is no info and url
+            if "Info" in markers[attached_image][2].keys():
+                for number_of_info in range(len(markers[attached_image][2]["Info"])):
+                    info_list.append([])
+                    info_list[count]= markers[attached_image][2]["Info"][number_of_info]
+                    count +=1
+                info_dic["info"] = info_list
+                # print(info_dic)
+                # print(data_for_databese[attached_image.split(".")[0]])
+                data_for_databese[attached_image.split(".")[0]].update(info_dic)
+            else:
+                info_dic["info"] = info_list
+                data_for_databese[attached_image.split(".")[0]].update(info_dic)
         else:
             info_dic["info"] = info_list
             data_for_databese[attached_image.split(".")[0]].update(info_dic)
 
-    for attached_image in markers: # ここがおかしいのかも
+    for attached_image in markers:
         url_dic = {}
         url_list = []
         count=0
-        if "URL" in markers[attached_image][2].keys():
-            for number_of_url in range(len(markers[attached_image][2]["URL"])):
-                url_list.append([])
-                url_list[count]= markers[attached_image][2]["URL"][number_of_url]
-                count +=1
-            url_dic["URL"] = url_list
-            data_for_databese[attached_image.split(".")[0]].update(url_dic)
+        flug_nothing_url = False
+        if len(markers[attached_image])==2: flug_nothing_url =True
+
+        if not flug_nothing_url: # in case that there is no info and url
+            if "URL" in markers[attached_image][2].keys():
+                for number_of_url in range(len(markers[attached_image][2]["URL"])):
+                    url_list.append([])
+                    url_list[count]= markers[attached_image][2]["URL"][number_of_url]
+                    count +=1
+                url_dic["URL"] = url_list
+                data_for_databese[attached_image.split(".")[0]].update(url_dic)
+            else:
+                url_dic["URL"] = url_list
+                data_for_databese[attached_image.split(".")[0]].update(url_dic)
         else:
             url_dic["URL"] = url_list
             data_for_databese[attached_image.split(".")[0]].update(url_dic)

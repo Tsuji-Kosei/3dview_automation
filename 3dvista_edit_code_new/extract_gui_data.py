@@ -16,10 +16,15 @@ def mv_info():
 #print(json_next_load.keys())
     for key in json_next_load.keys():
         # print(json_next_load[key][2].keys())
-        if "Info" in json_next_load[key][2].keys():
-            for i in range(len(json_next_load[key][2]["Info"])):
-                info_image_path.append(os.path.basename(
-                    json_next_load[key][2]["Info"][i][0]))
+        flug_nothing = False
+        if len(json_next_load[key])== 2: flug_nothing =True
+        if not flug_nothing:
+            if "Info" in json_next_load[key][2].keys():
+                for i in range(len(json_next_load[key][2]["Info"])):
+                    info_image_path.append(os.path.basename(
+                        json_next_load[key][2]["Info"][i][0]))
+            else: pass
+        
 
     # print(info_image_path)
     for i in range(len(info_image_path)):
