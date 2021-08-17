@@ -15,15 +15,18 @@ def mv_info():
     # os.mkdir("Image_info")
 #print(json_next_load.keys())
     for key in json_next_load.keys():
-        for i in range(len(json_next_load[key][4]["info"])):
-            info_image_path.append(os.path.basename(
-                json_next_load[key][4]["info"][i][0]))
+        # print(json_next_load[key][2].keys())
+        if "Info" in json_next_load[key][2].keys():
+            for i in range(len(json_next_load[key][2]["Info"])):
+                info_image_path.append(os.path.basename(
+                    json_next_load[key][2]["Info"][i][0]))
 
-
+    # print(info_image_path)
     for i in range(len(info_image_path)):
         info_image_path[i] = os.path.join("Images", info_image_path[i])
 
-    print(info_image_path)
+    info_image_path = list(set(info_image_path))
+    # print(info_image_path)
 
     for i in range(len(info_image_path)):
         try:

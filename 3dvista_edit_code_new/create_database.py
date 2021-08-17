@@ -59,25 +59,34 @@ def create_db(original_path, data_path):
         info_dic = {}
         info_list = []
         count=0
-        for number_of_info in range(len(markers[attached_image][4]["info"])):
-            info_list.append([])
-            info_list[count]= markers[attached_image][4]["info"][number_of_info]
-            count +=1
-        info_dic["info"] = info_list
-        # print(info_dic)
-        # print(data_for_databese[attached_image.split(".")[0]])
-        data_for_databese[attached_image.split(".")[0]].update(info_dic)
+        if "Info" in markers[attached_image][2].keys():
+            print(len(markers[attached_image][2]["Info"]))
+            for number_of_info in range(len(markers[attached_image][2]["Info"])):
+                info_list.append([])
+                info_list[count]= markers[attached_image][2]["Info"][number_of_info]
+                count +=1
+            info_dic["info"] = info_list
+            # print(info_dic)
+            # print(data_for_databese[attached_image.split(".")[0]])
+            data_for_databese[attached_image.split(".")[0]].update(info_dic)
+        else:
+            info_dic["info"] = info_list
+            data_for_databese[attached_image.split(".")[0]].update(info_dic)
 
     for attached_image in markers: # ここがおかしいのかも
         url_dic = {}
         url_list = []
         count=0
-        for number_of_url in range(len(markers[attached_image][3]["URL"])):
-            url_list.append([])
-            url_list[count]= markers[attached_image][3]["URL"][number_of_url]
-            count +=1
-        url_dic["URL"] = url_list
-        data_for_databese[attached_image.split(".")[0]].update(url_dic)
+        if "URL" in markers[attached_image][2].keys():
+            for number_of_url in range(len(markers[attached_image][2]["URL"])):
+                url_list.append([])
+                url_list[count]= markers[attached_image][2]["URL"][number_of_url]
+                count +=1
+            url_dic["URL"] = url_list
+            data_for_databese[attached_image.split(".")[0]].update(url_dic)
+        else:
+            url_dic["URL"] = url_list
+            data_for_databese[attached_image.split(".")[0]].update(url_dic)
 
 
 
@@ -86,7 +95,7 @@ def create_db(original_path, data_path):
 
 
 def main():
-    create_db("Images/coordinates.json","data_base.js")
+    create_db("Images/coordinates.json","data_base_test.js")
 
 if __name__ == "__main__":
     main()
