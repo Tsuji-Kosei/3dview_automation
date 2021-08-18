@@ -19,9 +19,35 @@
         "/Users/johnli/Documents/projects/rutilea_work/school_map/back_end/../front_end/public/uploaded_assets/markers/What-Your-Favorite-Fruit-Says-About-You.jpeg",
         383.012,
         626.91
+      ],
+      [
+        "/Users/johnli/Documents/projects/rutilea_work/school_map/back_end/../front_end/public/uploaded_assets/markers/What-Your-Favorite-Fruit-Says-About-You.jpeg",
+        100.012,
+        400.91
+      ],
+      [
+        "/Users/johnli/Documents/projects/rutilea_work/school_map/back_end/../front_end/public/uploaded_assets/markers/What-Your-Favorite-Fruit-Says-About-You.jpeg",
+        233.012,
+        62.91
+      ],
+      [
+        "/Users/johnli/Documents/projects/rutilea_work/school_map/back_end/../front_end/public/uploaded_assets/markers/What-Your-Favorite-Fruit-Says-About-You.jpeg",
+        0.012,
+        0.91
       ]
     ],
-    "URL": []
+    "URL": [
+      [
+        "/Users/johnli/Documents/projects/rutilea_work/school_map/back_end/../front_end/public/uploaded_assets/markers/chip_compare1.png",
+        337.996,
+        652.75
+      ],
+      [
+        "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+        200.996,
+        652.75
+      ]
+    ]
   },
   "R0010456": {
     "hotspot": [
@@ -65,6 +91,11 @@
         "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
         337.996,
         652.75
+      ],
+      [
+        "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+        7.996,
+        52.75
       ]
     ]
   },

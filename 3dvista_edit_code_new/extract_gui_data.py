@@ -37,8 +37,9 @@ def mv_info():
         try:
             shutil.move(info_image_path[i], "project")
         except shutil.Error as err:
-            os.remove(info_image_path[i])
-            print("already exist info image in project dir")
+            if os.path.isfile(info_image_path[i]):
+                os.remove(info_image_path[i])
+                print("already exist info image in project dir")
 
 
 def unzipping():
