@@ -65,13 +65,24 @@ class Add_Json_Data():
                 angle = self.db_load[i]["hotspot"][j][1]
                 pre_connect_hotspot.append([self.db_load[i]["hotspot"][j][0],700+700*angle/math.pi, angle*180/math.pi])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_hotspot[i]=pre_connect_hotspot
+    
+    def calcurate_coordinates(self,x,y):
+        x /=100
+        y /=400
+        x -= math.pi
+        y -= math.pi/2
+        x = x*180/math.pi
+        y = y*180/math.pi
+        return x,y
+
 
     def _get_connect_info(self):
         
         for i in self.db_load.keys():
             pre_connect_info = []
             for j in range(len(self.db_load[i]["info"])):
-                pre_connect_info.append([self.db_load[i]["info"][j][0],self.db_load[i]["info"][j][1],self.db_load[i]["info"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
+                x,y = self.calcurate_coordinates(self.db_load[i]["info"][j][1],self.db_load[i]["info"][j][2])
+                pre_connect_info.append([self.db_load[i]["info"][j][0],x,y])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_info[i]=pre_connect_info
 
     def _get_connect_url(self):
@@ -79,7 +90,8 @@ class Add_Json_Data():
         for i in self.db_load.keys():
             pre_connect_url = []
             for j in range(len(self.db_load[i]["URL"])):
-                pre_connect_url.append([self.db_load[i]["URL"][j][0],self.db_load[i]["URL"][j][1],self.db_load[i]["URL"][j][2]])  ##connect_hotspotに名前,x, yでappendしたい
+                x,y = self.calcurate_coordinates(self.db_load[i]["URL"][j][1],self.db_load[i]["URL"][j][2])
+                pre_connect_url.append([self.db_load[i]["URL"][j][0],x,y])  ##connect_hotspotに名前,x, yでappendしたい
             self.connect_url[i]=pre_connect_url
 
     def _get_number_hotspot(self):
@@ -203,9 +215,9 @@ class Add_Json_Data():
                                     "width":33.3333,
                                     "distance":100,
                                     "factorHeight":1.071877180739707,
-                                    "pitch":(618.24-self.connect_info[i][j][1])*90/618.24,
+                                    "pitch":self.connect_info[i][j][2],
                                     "hfov":7.616601683506721,
-                                    "yaw":(self.connect_info[i][j][2]-309.12)*180/309.12,#-6.9186093422888835,
+                                    "yaw":self.connect_info[i][j][1],
                                     "height":30,
                                     "path":"hotspots/Hotspot_7E39A010_7A6C_4A10_41CC_55298DA3B325.png"}],
                                     "id":f"overlay_D{count}_{j}",
@@ -253,9 +265,9 @@ class Add_Json_Data():
                                     "width":30, 
                                     "distance":50, 
                                     "factorHeight":4.996282527881041, 
-                                    "pitch":(618.24-self.connect_url[i][j][1])*90/618.24, 
+                                    "pitch":self.connect_url[i][j][2], 
                                     "hfov":8.321923226137582, 
-                                    "yaw":(self.connect_url[i][j][2]-309.12)*180/309.12, 
+                                    "yaw":self.connect_url[i][j][1], 
                                     "height":30, 
                                     "class":"HotspotPanoramaOverlayBitmapImage"}], 
                                     "id":f"overlay_E{count}_{j}", 
