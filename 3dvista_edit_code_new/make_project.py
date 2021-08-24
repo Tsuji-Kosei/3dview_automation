@@ -41,7 +41,7 @@ def edit_vista(args):
 
     # プロジェクトファイルのscript.jsを編集
     create_database.create_db(cordinate_data_path,data_base_path)
-    prepare = Prepare(script_path="script.js", db_path="data_base.js")
+    prepare = Prepare(script_path=script_path, db_path=data_base_path)
     script = prepare.script
     db = prepare.db
     number_panorama = prepare.number_panorama
@@ -51,11 +51,11 @@ def edit_vista(args):
     hotspot = Hotspot(db, number_panorama, remember_name_id)
     info = Info(db, number_panorama, remember_name_id)
     url = URL(db, number_panorama, remember_name_id)
-    AJD = Add_Json_Data(script, db,remember_number, remember_context, hotspot, info, url, prepare.script_open, prepare.db_open)
+    AJD = Add_Json_Data(script, db, remember_number, remember_context, hotspot, info, url, prepare.script_open, prepare.db_open)
     AJD.insert_hotspot()
     AJD.insert_info()
     AJD.insert_url()
-    AJD.save_to_json("script.js")
+    AJD.save_to_json(script_path)
     AJD.file_close()
 
     # 解凍したファイルを再びzipファイルに圧縮する

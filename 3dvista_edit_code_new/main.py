@@ -18,6 +18,7 @@ def main():
     args = parser.parse_args()
 
     unzipping()
+    print("DD")
     # path_list, angle_list = taking_image_path()
     # print(path_list)
     # print(angle_list)

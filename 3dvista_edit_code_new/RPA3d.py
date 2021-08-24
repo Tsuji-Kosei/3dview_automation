@@ -97,6 +97,7 @@ class RPA:
 			self.wait_disappear("Loading", 0.8)
 
 		#保存
+		print("FF")
 		time.sleep(0.1)
 		pgui.press("tab")
 		time.sleep(0.1)
@@ -110,9 +111,11 @@ class RPA:
 		time.sleep(0.5)
 
 	def Preview(self):
+		print("RR")
 
 	#パノラマ編集
-		subprocess.call("py main.py --copy " + self.Name)
+		# subprocess.call("py main.py --copy " + self.Name)
+		print("TT")
 		
 		#プレビュー
 		file_button = pgui.locateOnScreen(".\\screenshots\\File.jpg", grayscale=True, confidence=0.8)
@@ -132,6 +135,7 @@ class RPA:
 		time.sleep(10)
 
 	def popup_open(self):
+		
 		#ポップアップの作成
 		root = tkinter.Tk()
 		root.attributes("-topmost", True)
@@ -156,7 +160,10 @@ class RPA:
 			t2 = threading.Thread(target=self.Preview)
 		t1.start()
 		t2.start()
+		t1.join()
+		print("t1stop")
 		t2.join()
+		print("t2stop")
 		pgui.click(x=self.loc_x+self.psize_x-5, y=self.loc_y+5)
 
 

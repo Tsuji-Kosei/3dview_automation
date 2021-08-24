@@ -44,6 +44,7 @@ def mv_info():
 
 def unzipping():
     if os.path.isdir("Images"):
+        print("A")
         shutil.rmtree("Images")
 
     destination_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
