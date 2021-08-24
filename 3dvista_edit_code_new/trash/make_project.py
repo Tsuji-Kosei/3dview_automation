@@ -3,7 +3,7 @@ import sys
 import shutil
 import zipfile
 import zlib
-from Edit_Script_new import *
+from Edit_Script import Add_Json_Data
 import create_database
 import time
 
@@ -41,21 +41,16 @@ def edit_vista(args):
 
     # プロジェクトファイルのscript.jsを編集
     create_database.create_db(cordinate_data_path,data_base_path)
-    prepare = Prepare(script_path="script.js", db_path="data_base.js")
-    script = prepare.script
-    db = prepare.db
-    number_panorama = prepare.number_panorama
-    remember_number = prepare.remember_number
-    remember_context = prepare.remember_context
-    remember_name_id = prepare.remember_name_id
-    hotspot = Hotspot(db, number_panorama, remember_name_id)
-    info = Info(db, number_panorama, remember_name_id)
-    url = URL(db, number_panorama, remember_name_id)
-    AJD = Add_Json_Data(script, db,remember_number, remember_context, hotspot, info, url, prepare.script_open, prepare.db_open)
-    AJD.insert_hotspot()
-    AJD.insert_info()
-    AJD.insert_url()
-    AJD.save_to_json("script.js")
+    AJD = Add_Json_Data(script_path, data_base_path)
+    AJD.insert_overlays()
+    AJD.insert_areas_hotspot()
+    AJD.insert_areas_info()
+    AJD.insert_areas_url()
+    AJD.insert_behaviours_hotspot()
+    AJD.insert_behaviours_info()
+    AJD.insert_behaviours_url()
+    AJD.insert_behaviours_url_two()
+    AJD.save_to_json(script_path)
     AJD.file_close()
 
     # 解凍したファイルを再びzipファイルに圧縮する
