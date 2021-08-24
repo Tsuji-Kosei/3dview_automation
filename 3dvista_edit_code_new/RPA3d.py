@@ -27,6 +27,13 @@ class RPA:
 		self.Destination = CWD[1] + "\\project"
 		self.mode = mode
 
+		#popup
+		displaysize = pgui.size()
+		self.psize_x = int(displaysize[0]/4)
+		self.psize_y = int(displaysize[1]/10)
+		self.loc_x = int(displaysize[0]/2 - self.psize_x/2)
+		self.loc_y = int(displaysize[1]/10)
+
 	def wait_appear(self,Image, conf, timeout):
 		t = 0.0
 		# print(".\\screenshots\\" + Image + ".jpg")
@@ -126,11 +133,6 @@ class RPA:
 
 	def popup_open(self):
 		#ポップアップの作成
-		displaysize = pgui.size()
-		self.psize_x = int(displaysize[0]/4)
-		self.psize_y = int(displaysize[1]/10)
-		self.loc_x = int(displaysize[0]/2 - self.psize_x/2)
-		self.loc_y = int(displaysize[1]/10)
 		root = tkinter.Tk()
 		root.attributes("-topmost", True)
 		root.title("動作中")

@@ -6,21 +6,24 @@ from os.path import abspath, join, split
 
 
 class Add_Json_Data():
-    def __init__(self, script, db, hotspot, info, url):
-
+    def __init__(self, script, db,remember_number, remember_context, hotspot, info, url, script_open, db_open):
+        self.script_open = script_open
+        self.db_open = db_open
         self.script = script
         self.db = db
         self.hotspot = hotspot
         self.info = info
         self.url = url
+        self.remember_number = remember_number
+        self.remember_context = remember_context
 
     def insert_hotspot(self):
         # overlayをそれぞれに追加
-        for nameIm in self.remember_number.keys():
-            self.remember_context[nameIm].update(self.hotspot.overlays[nameIm])
+        for nameIm in self.hotspot.overlays.keys():
+        	self.remember_context[nameIm].update(self.hotspot.overlays[nameIm])
         # scriptにoverlay追加したのを入れる
         count = 0
-        for nameIm in self.remember_number.keys():
+        for nameIm in self.hotspot.overlays.keys():
             self.script['player']['definitions'][self.remember_number[nameIm]] = self.remember_context[nameIm]
             count += 1
 
@@ -41,9 +44,11 @@ class Add_Json_Data():
     def insert_info(self):
 
         # overlayをそれぞれに追加
-        for nameIm in self.remember_number.keys():
-            self.remember_context[nameIm].update(self.info.overlays[nameIm])
-        # scriptにoverlay追加したのを入れる
+        # print(self.remember_context)
+        # print(self.info.overlays)
+        for nameIm in self.info.overlays.keys():
+            self.remember_context[nameIm]["overlays"] += self.info.overlays[nameIm]["overlays"]
+        # scriptにoverlay追加したのを入れる #更新（最後のだけでいい）
         count = 0
         for nameIm in self.remember_number.keys():
             self.script['player']['definitions'][self.remember_number[nameIm]] = self.remember_context[nameIm]
@@ -73,8 +78,8 @@ class Add_Json_Data():
     
     def insert_url(self):
          # overlayをそれぞれに追加
-        for nameIm in self.remember_number.keys():
-            self.remember_context[nameIm].update(self.url.overlays[nameIm])
+        for nameIm in self.url.overlays.keys():
+            self.remember_context[nameIm]["overlays"] += self.url.overlays[nameIm]["overlays"]
         # scriptにoverlay追加したのを入れる
         count = 0
         for nameIm in self.remember_number.keys():
@@ -87,7 +92,7 @@ class Add_Json_Data():
             if self.url.number[i] == 0 :
                 pass
             else :
-                for j in range(self.url.numberl[i]):
+                for j in range(self.url.number[i]):
                     self.script["player"]["definitions"].append(self.url.areas[count][j])  # countは何番目のkey　jは何番目のvalue kはvalueが要素数２のリストなので取り出している
             count+=1
         # add behaviour
@@ -119,7 +124,7 @@ class Add_Json_Data():
 
     #　開いているjsonファイルを閉じる
     def file_close (self):
-        self.json_open.close()
+        self.script_open.close()
         self.db_open.close()
 
 class Prepare:
@@ -143,7 +148,7 @@ class Prepare:
                 if(v=='hfovMin'):
                     count+=1
         self.number_panorama = count
-
+        # print(self.number_panorama)
     def remember_context_panorama(self):
         self.remember_context = {}
         json_definition = self.script["player"]["definitions"]
@@ -189,6 +194,12 @@ class Hotspot:
         self.number_panorama  = number_panorama
         self.remember_name_id = remember_name_id
 
+        self._get_connect()
+        self._get_number()
+        self._get_overlays()
+        self._get_areas()
+        self._get_behaviours()
+
     def _get_connect(self):
         self.connect= {}
         
@@ -219,15 +230,19 @@ class Hotspot:
 
     def _get_areas(self):
         self.areas = []
-
+        # print(self.number_panorama)
         for i in range(self.number_panorama):
             self.areas.append([])
 
         count =0
+        # print(self.connect)
+        # print(self.number)
         for i in self.number.keys():
             for j in range(self.number[i]):
-                #yaw = 10*j
-                self.areas[count].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
+            	# print(i)
+            	# print(j)
+
+            	self.areas[count].append({"areas":[f"this.HotspotPanoramaOverlayArea_C{count}_{j}"],
                         "class":"HotspotPanoramaOverlayEditable",
                         "excludeClickGoMode":False,
                         "items":[{"visibleOnStop":False,
@@ -294,6 +309,12 @@ class Info:
         self.db = db
         self.number_panorama  = number_panorama
         self.remember_name_id = remember_name_id
+
+        self._get_connect()
+        self._get_number()
+        self._get_overlays()
+        self._get_areas()
+        self._get_behaviours()
     
     def _get_connect(self):
         self.connect ={}
@@ -480,6 +501,12 @@ class URL:
         self.db = db
         self.number_panorama  = number_panorama
         self.remember_name_id = remember_name_id
+
+        self._get_connect()
+        self._get_number()
+        self._get_overlays()
+        self._get_areas()
+        self._get_behaviours()
     
     def _get_connect(self):
         self.connect = {}
@@ -578,11 +605,13 @@ def main():
     script = prepare.script
     db = prepare.db
     number_panorama = prepare.number_panorama
+    remember_number = prepare.remember_number
+    remember_context = prepare.remember_context
     remember_name_id = prepare.remember_name_id
     hotspot = Hotspot(db, number_panorama, remember_name_id)
     info = Info(db, number_panorama, remember_name_id)
     url = URL(db, number_panorama, remember_name_id)
-    AJD = Add_Json_Data(script, db, hotspot, info, url)
+    AJD = Add_Json_Data(script, db,remember_number, remember_context, hotspot, info, url, prepare.script_open, prepare.db_open)
     AJD.insert_hotspot()
     AJD.insert_info()
     AJD.insert_url()

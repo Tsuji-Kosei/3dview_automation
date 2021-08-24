@@ -43,6 +43,9 @@ def mv_info():
 
 
 def unzipping():
+    if os.path.isdir("Images"):
+        shutil.rmtree("Images")
+
     destination_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
     #create the folder to save the data from gui app
 
