@@ -26,6 +26,7 @@ class RPA:
 		self.Images = CWD[1] + "\\Images"
 		self.Destination = CWD[1] + "\\project"
 		self.mode = mode
+		self.t2_finish_flug = False
 
 		#popup
 		displaysize = pgui.size()
@@ -137,16 +138,24 @@ class RPA:
 	def popup_open(self):
 		
 		#ポップアップの作成
-		root = tkinter.Tk()
-		root.attributes("-topmost", True)
-		root.title("動作中")
+		self.root = tkinter.Tk()
+		self.root.attributes("-topmost", True)
+		self.root.title("動作中")
 		window = str(self.psize_x) + "x" + str(self.psize_y) + "+" + str(self.loc_x) + "+" + str(self.loc_y)
-		root.geometry(window)
+		self.root.geometry(window)
 		message = "PCを操作しないでください。"
 		caution = tkinter.Label(text=message, font=("normal", "12", "normal"))
 		caution.pack(anchor="center", expand=1)
 
-		root.mainloop()
+		self.check_quit_t2process()
+		self.root.mainloop()
+
+	def check_quit_t2process(self):
+		if not self.t2_finish_flug:
+			self.root.after(10, self.check_quit_t2process)
+		else:
+			self.root.destroy()
+			self.root.quit()
 
 
 
@@ -160,11 +169,12 @@ class RPA:
 			t2 = threading.Thread(target=self.Preview)
 		t1.start()
 		t2.start()
-		t1.join()
-		print("t1stop")
 		t2.join()
+		self.t2_finish_flug = True
 		print("t2stop")
-		pgui.click(x=self.loc_x+self.psize_x-5, y=self.loc_y+5)
+		t1.join()
+		print("popupstop")
+		# pgui.click(x=self.loc_x+self.psize_x-5, y=self.loc_y+5)
 
 
 
