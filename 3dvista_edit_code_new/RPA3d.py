@@ -154,15 +154,17 @@ class RPA:
 		if not self.t2_finish_flug:
 			self.root.after(10, self.check_quit_t2process)
 		else:
+			print("end")
 			self.root.destroy()
 			self.root.quit()
+			time.sleep(10)
 
 
 
 	def main(self):
 		if self.mode == "create_vtp":
 			os.system('taskkill /f /im "3DVista Virtual Tour.exe" 2>nul')
-		t1 = multiprocessing.Process(target=self.popup_open)
+		t1 = threading.Thread(target=self.popup_open)
 		if self.mode == "create_vtp":
 			t2 = threading.Thread(target=self.New_Project)
 		else:
